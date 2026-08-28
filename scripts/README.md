@@ -67,9 +67,20 @@ no longer exists, a month is missing from `CAPACITY`, `CAPACITY` names a month
 that is gone, or a pack covers an unknown month. Shortening the course is
 exactly the change that trips this, which is the point.
 
-After creating a ticket type, always read `hide_until` / `hide_after` back. The
-create endpoint has been seen to store them an hour off; re-POSTing the same
-timestamp to the update endpoint fixes it.
+## Never POST a bare quantity
+
+Ticket Tailor shifts `hide_until` and `hide_after` forward by exactly one hour
+on any partial update that **omits** them. A bare `{"quantity": N}` write walks
+that ticket's sale window an hour later every time it runs. Confirmed
+2026-08-28: four quantity writes moved one cutoff four hours late.
+
+A field sent explicitly is stored exactly as sent, so `write_payload()` echoes
+both timestamps back alongside the quantity. Every write goes through it. If you
+add a new write path, route it through `write_payload()` too.
+
+The same trap applies by hand: editing a price, name or fee over the API moves
+the window unless you re-send both timestamps in the same call. Always read
+`hide_until` / `hide_after` back after any ticket-type write.
 
 ## Keeping the schedule alive
 

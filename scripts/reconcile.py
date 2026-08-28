@@ -137,6 +137,26 @@ def check_config(tts):
         sys.exit("Config does not match the live event series. Fix reconcile.py.")
 
 
+def write_payload(tt, quantity):
+    """Quantity plus the sale window, pinned.
+
+    Ticket Tailor shifts hide_until and hide_after forward by exactly one hour
+    on any partial update that omits them, so a bare {"quantity": N} write
+    silently walks a ticket's sale window an hour later every single time.
+    Confirmed 2026-08-28: four quantity writes moved one cutoff four hours.
+    Echoing the values we just read back pins them, because a field sent
+    explicitly is stored exactly as sent.
+
+    Never POST to a ticket type without going through this.
+    """
+    data = {"quantity": quantity}
+    for field in ("hide_until", "hide_after"):
+        val = tt.get(field)
+        if val:
+            data[field] = val["unix"]
+    return data
+
+
 def main():
     apply_changes = "--apply" in sys.argv
     key = api_key()
@@ -198,7 +218,7 @@ def main():
 
     for name, tid, have, want in changes:
         request(key, "/event_series/%s/ticket_types/%s" % (SERIES, tid),
-                {"quantity": want})
+                write_payload(tts[tid], want))
         print("wrote %s = %d" % (name, want))
 
     if oversold:
