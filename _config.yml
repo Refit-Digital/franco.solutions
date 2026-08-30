@@ -1,0 +1,22 @@
+# GitHub Pages build config for franco.solutions.
+#
+# The repo is private, but Pages serves the WHOLE branch: every file Jekyll
+# copies through is public at https://franco.solutions/<path>, private repo or
+# not. Confirmed 2026-08-30 — scripts/reconcile.py, scripts/ttlib.py and the
+# site backup all returned 200 to an anonymous request.
+#
+# Nothing here leaks a credential (TT_API_KEY is a repo secret and is never in
+# the tree), but the reconcile scripts do carry Semente's Ticket Tailor series
+# and ticket-type ids and its seat allocations, which have no business being
+# on a public URL.
+#
+# Files and folders starting with . or _ are always excluded by Jekyll, so
+# .keepalive and _qa-preview.html already 404. This list covers the rest.
+#
+# Do NOT add a .nojekyll file to this repo: it bypasses Jekyll entirely and
+# would serve everything again, this list included.
+exclude:
+  - scripts
+  - franco-solutions_5.backup.html
+
+# wallpaper/ is deliberately left public — it serves franco.solutions/wallpaper/.
