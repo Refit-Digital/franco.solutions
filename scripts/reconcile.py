@@ -25,21 +25,15 @@ it works only because it lives here. This script owns the allocation field:
 anything written there by hand, in the dashboard or over the API, is
 overwritten on the next run. To reserve a seat, edit CAPACITY.
 
-Note: the Ticket Tailor API returns 403 to urllib without a User-Agent header.
-
 Usage:
     python3 reconcile.py            # dry run, prints intended changes
     python3 reconcile.py --apply    # writes them
 """
 
-import json
-import os
-import re
 import sys
-import urllib.parse
-import urllib.request
 
-API = "https://api.tickettailor.com/v1"
+from ttlib import api_key, request, ticket_types, write_payload
+
 SERIES = "es_2383043"          # Seeds of English
 
 # Month ticket types, in course order. The course runs Mon 7 Sep 2026 to
@@ -70,49 +64,6 @@ PACKS = {
 }
 
 
-def api_key():
-    """Environment first (CI), then the key file wherever it happens to live."""
-    key = os.environ.get("TT_API_KEY")
-    if key:
-        return key
-    candidates = [
-        "~/Desktop/Semente/Franco/API Keys.rtf",   # Franco's Mac
-        "~/mnt/Semente/Franco/API Keys.rtf",       # Cowork session mount
-    ]
-    for c in candidates:
-        path = os.path.expanduser(c)
-        try:
-            blob = open(path, "rb").read().decode("utf-8", "ignore")
-        except OSError:
-            continue
-        m = re.search(r"sk_[A-Za-z0-9_]+", blob)
-        if m:
-            return m.group(0)
-        sys.exit("No API key found in %s" % path)
-    sys.exit("No TT_API_KEY set and no key file found in: %s"
-             % ", ".join(candidates))
-
-
-def request(key, path, data=None):
-    url = API + path
-    body = urllib.parse.urlencode(data).encode() if data else None
-    req = urllib.request.Request(url, data=body, method="POST" if data else "GET")
-    auth = __import__("base64").b64encode(("%s:" % key).encode()).decode()
-    req.add_header("Authorization", "Basic " + auth)
-    req.add_header("User-Agent", "semente-reconcile/1.0")
-    req.add_header("Accept", "application/json")
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read().decode())
-
-
-def ticket_types(key):
-    data = request(key, "/event_series")
-    for series in data["data"]:
-        if series["id"] == SERIES:
-            return {t["id"]: t for t in series["default_ticket_types"]}
-    sys.exit("Event series %s not found" % SERIES)
-
-
 def check_config(tts):
     """Fail loudly if the config has drifted from the live box office."""
     problems = []
@@ -137,30 +88,10 @@ def check_config(tts):
         sys.exit("Config does not match the live event series. Fix reconcile.py.")
 
 
-def write_payload(tt, quantity):
-    """Quantity plus the sale window, pinned.
-
-    Ticket Tailor shifts hide_until and hide_after forward by exactly one hour
-    on any partial update that omits them, so a bare {"quantity": N} write
-    silently walks a ticket's sale window an hour later every single time.
-    Confirmed 2026-08-28: four quantity writes moved one cutoff four hours.
-    Echoing the values we just read back pins them, because a field sent
-    explicitly is stored exactly as sent.
-
-    Never POST to a ticket type without going through this.
-    """
-    data = {"quantity": quantity}
-    for field in ("hide_until", "hide_after"):
-        val = tt.get(field)
-        if val:
-            data[field] = val["unix"]
-    return data
-
-
 def main():
     apply_changes = "--apply" in sys.argv
     key = api_key()
-    tts = ticket_types(key)
+    tts = ticket_types(key, SERIES)
     check_config(tts)
 
     issued = {name: tts[tid]["quantity_issued"] for name, tid in MONTHS}

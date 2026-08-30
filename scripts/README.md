@@ -1,31 +1,58 @@
-# Ticket Tailor pack reconciler
+# Ticket Tailor reconcilers
 
-Keeps Semente's Ticket Tailor pack availability in step with single-month
-availability. Ticket Tailor has no shared inventory between ticket types, so a
-multi-month pack cannot natively take a seat out of each month it covers. This
-recomputes every allocation from scratch and writes it back, once a day.
+Ticket Tailor has no shared inventory between ticket types: nothing stops two
+ticket types selling the same seat twice. Both scripts here fix that the same
+way, by recomputing every allocation from scratch once a day and writing it
+back, which makes them idempotent and self-correcting after refunds and voids.
+
+| Script | Course | Series | The clash it resolves |
+|---|---|---|---|
+| `reconcile.py` | Seeds of English | `es_2383043` | a semester pack vs the months it covers |
+| `reconcile_atelier.py` | Atelier de Criatividade | `es_2387994` | monthly places vs per-session drop-ins |
+
+`ttlib.py` holds the auth, the HTTP call and `write_payload()`, shared so the
+sale-window workaround below can never diverge between the two.
+
+## Seeds of English — pack vs months
 
     month_total[M] = CAPACITY[M] - (packs sold covering M)
     seats_free[M]  = month_total[M] - month_issued[M]
     pack_total[P]  = pack_issued[P] + min(seats_free[M] for M in P)
 
-Recomputed from scratch each run, so it is idempotent and self-corrects after
-refunds and voids.
+Mon 7 Sep 2026 11:00 to Mon 1 Feb 2027 12:30, weekly Monday mornings. Five paid
+months at EUR 66 (September to January) and one `Curso Completo (Set-Fev)` pack
+at EUR 313.50. The single 1 Feb session is covered by January's ticket, so
+there is no February ticket type.
 
-## The course it manages
+## Atelier de Criatividade — monthly vs drop-in
 
-Seeds of English, series `es_2383043`. Mon 7 Sep 2026 11:00 to Mon 1 Feb 2027
-12:30, weekly Monday mornings.
+A monthly ticket takes a seat in EVERY session of its month; a dated drop-in
+takes a seat in ONE session. For each month M and each future session d in M:
 
-Five paid months at EUR 66 (September, October, November, December, January)
-and one `Curso Completo (Set-Fev)` pack at EUR 313.50. The single 1 Feb session
-is covered by January's ticket, so there is no February ticket type.
+    month_total[M]  = CAPACITY[M] - max(dropin_issued[d] for d in future(M))
+    dropin_total[d] = CAPACITY[M] - month_issued[M]
 
-## Running it
+A new monthly buyer must sit in every remaining session, so the busiest one
+binds: hence the `max()`. A new drop-in buyer sits in one session, but every
+monthly student is already in it: hence subtracting `month_issued`.
+
+Only future sessions count. A session that has happened cannot constrain a new
+monthly buyer, who could not have attended it, so it drops out of the `max()`
+as the month goes on. Past sessions and finished months are never written to.
+
+Mon 7 Sep 2026 17:30 to Mon 28 Jun 2027 19:00, weekly Monday afternoons. Ten
+monthly tickets at EUR 75 and 43 dated drop-ins at EUR 20, one per Monday.
+
+## Running them
 
     cd scripts
-    python3 reconcile.py            # dry run, prints intended changes
-    python3 reconcile.py --apply    # writes them
+    python3 reconcile.py                    # dry run, prints intended changes
+    python3 reconcile.py --apply            # writes them
+    python3 reconcile_atelier.py            # same, for the Atelier
+    python3 reconcile_atelier.py --apply
+    python3 reconcile_atelier.py --today 2027-01-11   # pretend it is that day
+
+    python3 test_reconcile_atelier.py       # offline; no key, no network
 
 The workflow lives at `.github/workflows/reconcile.yml` in the **repo root**,
 not beside the script. GitHub only reads workflows from the root.
@@ -53,19 +80,41 @@ rule and is no longer used. That endpoint now returns
 `400 - "You need to add your billing details or have enough ticket credits
 before you can import tickets."` anyway.
 
-## Changing the course
+## Changing a course
 
-`SERIES`, `MONTHS`, `CAPACITY` and `PACKS` at the top of `reconcile.py`.
+Everything lives in the config block at the top of each script.
 
-- `MONTHS` is an ordered list of `(name, ticket_type_id)`.
-- `CAPACITY` is a dict keyed by those same month names.
-- `PACKS` is `ticket_type_id -> (display name, [month names])`. Months are
-  listed explicitly; nothing is inferred from the pack's name.
+`reconcile.py`: `SERIES`, `MONTHS` (ordered `(name, ticket_type_id)`),
+`CAPACITY` (keyed by those month names) and `PACKS`
+(`ticket_type_id -> (display name, [month names])`). Pack months are listed
+explicitly; nothing is inferred from the pack's name.
+
+`reconcile_atelier.py`: `SERIES`, `MONTHS` (ordered
+`(month key, display name, ticket_type_id)` with keys like `2027-01`),
+`CAPACITY` (keyed by those month keys) and `SESSIONS` (ordered
+`(YYYY-MM-DD, ticket_type_id)`, one line per Monday). A session's month is
+taken from its own date, so nothing has to be kept in step by hand.
+
+**Cancelling a session** means deleting its line from `SESSIONS` *and* deleting
+the ticket type. Removing only the line leaves it quietly on sale; removing
+only the ticket type trips `check_config()`, which is the safer of the two
+mistakes.
 
 `check_config()` runs before any write and aborts if a configured ticket type
 no longer exists, a month is missing from `CAPACITY`, `CAPACITY` names a month
-that is gone, or a pack covers an unknown month. Shortening the course is
-exactly the change that trips this, which is the point.
+that is gone, a pack covers an unknown month, a session falls in an unknown
+month, a date is listed twice, or a month has no sessions at all. Shortening a
+course is exactly the change that trips this, which is the point.
+
+## Tests
+
+`test_reconcile_atelier.py` swaps in a fake box office and captures writes
+instead of sending them, so it needs no key and no network and cannot touch the
+live account. It covers the arithmetic both ways round, past sessions dropping
+out, both oversold paths exiting 1, stale config aborting before any write, the
+dry run writing nothing, and every write carrying its sale window.
+
+Run it after any edit to the maths, the config, or `write_payload()`.
 
 ## Never POST a bare quantity
 
