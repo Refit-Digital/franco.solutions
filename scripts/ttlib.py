@@ -27,9 +27,14 @@ def api_key():
     key = os.environ.get("TT_API_KEY")
     if key:
         return key
+    # The file moved into Code/ at some point; both are tried, newest first,
+    # because a stale path here fails every local run with a misleading
+    # "no key found" rather than anything about the move.
     candidates = [
-        "~/Desktop/Semente/Franco/API Keys.rtf",   # Franco's Mac
-        "~/mnt/Semente/Franco/API Keys.rtf",       # Cowork session mount
+        "~/Desktop/Semente/Franco/Code/API Keys.rtf",   # Franco's Mac
+        "~/mnt/Semente/Franco/Code/API Keys.rtf",       # Cowork session mount
+        "~/Desktop/Semente/Franco/API Keys.rtf",        # pre-2026-08-31
+        "~/mnt/Semente/Franco/API Keys.rtf",
     ]
     for c in candidates:
         path = os.path.expanduser(c)
@@ -40,7 +45,6 @@ def api_key():
         m = re.search(r"sk_[A-Za-z0-9_]+", blob)
         if m:
             return m.group(0)
-        sys.exit("No API key found in %s" % path)
     sys.exit("No TT_API_KEY set and no key file found in: %s"
              % ", ".join(candidates))
 

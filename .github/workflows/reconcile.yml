@@ -28,14 +28,18 @@ jobs:
           TT_API_KEY: ${{ secrets.TT_API_KEY }}
         run: python reconcile.py --apply
 
-      # always(), so a red run on one course still reconciles the other. Both
-      # exit non-zero when oversold, and a failure in either fails the job.
-      - name: Reconcile Atelier de Criatividade
+      # always(), so a red run on Seeds of English still reconciles the
+      # others. reconcile_courses.py handles every monthly-plus-drop-in course
+      # in one process and already runs them all even when one fails, so
+      # adding a fourth course means editing COURSES, not this file. Both
+      # steps exit non-zero when oversold, and a failure in either fails the
+      # job.
+      - name: Reconcile Atelier de Criatividade and Uma Onda na Mente
         if: always()
         working-directory: scripts
         env:
           TT_API_KEY: ${{ secrets.TT_API_KEY }}
-        run: python reconcile_atelier.py --apply
+        run: python reconcile_courses.py --apply
 
       # GitHub disables scheduled workflows after 60 days of repository
       # inactivity. This commits once per calendar month to keep the schedule

@@ -8,7 +8,14 @@ back, which makes them idempotent and self-correcting after refunds and voids.
 | Script | Course | Series | The clash it resolves |
 |---|---|---|---|
 | `reconcile.py` | Seeds of English | `es_2383043` | a semester pack vs the months it covers |
-| `reconcile_atelier.py` | Atelier de Criatividade | `es_2387994` | monthly places vs per-session drop-ins |
+| `reconcile_courses.py` | Atelier de Criatividade | `es_2387994` | monthly places vs per-session drop-ins |
+| `reconcile_courses.py` | Uma Onda na Mente | `es_2389589` | monthly places vs per-session drop-ins |
+
+`reconcile_courses.py` replaced `reconcile_atelier.py` on 2026-08-31, when a
+third course needed identical arithmetic. The maths did not change; the config
+moved out of module scope into a `COURSES` list. Adding a fourth
+monthly-plus-drop-in course means appending a `Course(...)` there and nothing
+else: not a new file, not a new workflow step.
 
 `ttlib.py` holds the auth, the HTTP call and `write_payload()`, shared so the
 sale-window workaround below can never diverge between the two.
@@ -24,7 +31,7 @@ months at EUR 66 (September to January) and one `Curso Completo (Set-Fev)` pack
 at EUR 313.50. The single 1 Feb session is covered by January's ticket, so
 there is no February ticket type.
 
-## Atelier de Criatividade — monthly vs drop-in
+## Atelier de Criatividade and Uma Onda na Mente — monthly vs drop-in
 
 A monthly ticket takes a seat in EVERY session of its month; a dated drop-in
 takes a seat in ONE session. For each month M and each future session d in M:
@@ -48,11 +55,16 @@ monthly tickets at EUR 75 and 43 dated drop-ins at EUR 20, one per Monday.
     cd scripts
     python3 reconcile.py                    # dry run, prints intended changes
     python3 reconcile.py --apply            # writes them
-    python3 reconcile_atelier.py            # same, for the Atelier
-    python3 reconcile_atelier.py --apply
-    python3 reconcile_atelier.py --today 2027-01-11   # pretend it is that day
+    python3 reconcile_courses.py            # same, every drop-in course
+    python3 reconcile_courses.py --apply
+    python3 reconcile_courses.py --course onda        # just one course
+    python3 reconcile_courses.py --today 2027-01-11   # pretend it is that day
 
-    python3 test_reconcile_atelier.py       # offline; no key, no network
+    python3 test_reconcile_courses.py       # offline; no key, no network
+
+Every course is reconciled even when an earlier one fails, and the exit code is
+1 if any of them was oversold or had a stale config. That is why there is one
+workflow step for them rather than one per course.
 
 The workflow lives at `.github/workflows/reconcile.yml` in the **repo root**,
 not beside the script. GitHub only reads workflows from the root.
@@ -89,11 +101,17 @@ Everything lives in the config block at the top of each script.
 (`ticket_type_id -> (display name, [month names])`). Pack months are listed
 explicitly; nothing is inferred from the pack's name.
 
-`reconcile_atelier.py`: `SERIES`, `MONTHS` (ordered
+`reconcile_courses.py`: a `COURSES` list of `Course` objects, each with
+`key` (the `--course` name), `name`, `series`, `months` (ordered
 `(month key, display name, ticket_type_id)` with keys like `2027-01`),
-`CAPACITY` (keyed by those month keys) and `SESSIONS` (ordered
-`(YYYY-MM-DD, ticket_type_id)`, one line per Monday). A session's month is
+`capacity` (keyed by those month keys) and `sessions` (ordered
+`(YYYY-MM-DD, ticket_type_id)`, one line per session). A session's month is
 taken from its own date, so nothing has to be kept in step by hand.
+
+`capacity` is seats offered ONLINE, not room capacity. The Atelier's ten-seat
+room is set to 8 because two places were taken in person. Uma Onda is set to
+10, from Ines's course document; **her spreadsheet says 8 and she has not
+confirmed which is right.**
 
 **Cancelling a session** means deleting its line from `SESSIONS` *and* deleting
 the ticket type. Removing only the line leaves it quietly on sale; removing
@@ -108,11 +126,17 @@ course is exactly the change that trips this, which is the point.
 
 ## Tests
 
-`test_reconcile_atelier.py` swaps in a fake box office and captures writes
+`test_reconcile_courses.py` swaps in a fake box office and captures writes
 instead of sending them, so it needs no key and no network and cannot touch the
 live account. It covers the arithmetic both ways round, past sessions dropping
 out, both oversold paths exiting 1, stale config aborting before any write, the
 dry run writing nothing, and every write carrying its sale window.
+
+Every scenario runs against **both** courses at their own real capacity, so a
+change that is right for the Atelier and wrong for Uma Onda cannot pass. It
+also checks the cross-course invariants (no duplicate keys, series or ticket
+ids) and that `main()` still reconciles a healthy course when another one's
+config is broken.
 
 Run it after any edit to the maths, the config, or `write_payload()`.
 
