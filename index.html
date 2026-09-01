@@ -638,7 +638,10 @@ function pingStep(now){
   pingRaf = requestAnimationFrame(pingStep);
 }
 /* only where there is nothing to press: buttons and links have their own feedback */
+var PING_SKIP = 'a,button,input,textarea,select,label,summary,[role="button"],[role="link"],[onclick],[contenteditable="true"]';
 document.addEventListener('pointerdown', function(e){
+  var t = e.target;
+  if (t && t.closest && t.closest(PING_SKIP)) return;
   startPing(e.clientX, e.clientY);
 }, { passive:true });
 
