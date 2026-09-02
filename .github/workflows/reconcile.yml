@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
 
       - name: Reconcile Seeds of English
-        working-directory: scripts
+        working-directory: scripts/Semente
         env:
           TT_API_KEY: ${{ secrets.TT_API_KEY }}
         run: python reconcile.py --apply
@@ -36,7 +36,7 @@ jobs:
       # job.
       - name: Reconcile Atelier de Criatividade and Uma Onda na Mente
         if: always()
-        working-directory: scripts
+        working-directory: scripts/Semente
         env:
           TT_API_KEY: ${{ secrets.TT_API_KEY }}
         run: python reconcile_courses.py --apply
