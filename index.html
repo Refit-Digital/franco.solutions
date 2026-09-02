@@ -638,7 +638,10 @@ function pingStep(now){
   pingRaf = requestAnimationFrame(pingStep);
 }
 /* only where there is nothing to press: buttons and links have their own feedback */
+var PING_SKIP = 'a,button,input,textarea,select,label,summary,[role="button"],[role="link"],[onclick],[contenteditable="true"]';
 document.addEventListener('pointerdown', function(e){
+  var t = e.target;
+  if (t && t.closest && t.closest(PING_SKIP)) return;
   startPing(e.clientX, e.clientY);
 }, { passive:true });
 
@@ -1248,11 +1251,13 @@ function compose(){
   var L = ['Hi Franco,',''];
   if (A.start === 'admin'){
     var week = HOURS[A.often] || 4, r = A.rate || 25;
+    var year = Math.round(week * 48);
+    var money = Math.round(year * r / 100) * 100;
     L.push('I went through the questions on your site.');
     L.push('');
     L.push('What eats my time: ' + labelOf('eats'));
-    L.push('Roughly ' + week + ' hours a week, and I charge about ' + CUR + r + ' an hour.');
-    L.push('That worked out at ' + Math.round(week*48) + ' hours a year.');
+    L.push('Roughly ' + week + ' hours a week, which worked out at ' + year + ' hours a year.');
+    L.push('Your page put that at about ' + CUR + money.toLocaleString('en-GB') + ' a year, which is what automating it would be worth to me.');
   } else if (A.start === 'nosite' || A.start === 'badsite'){
     L.push(A.start === 'nosite' ? 'I have not got a website yet.' : 'I have a website and I am not happy with it.');
     L.push('');
