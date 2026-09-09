@@ -73,58 +73,6 @@ class Course:
         self.sessions = sessions    # [(ISO date, ticket id)]
 
 
-ATELIER = Course(
-    key="atelier",
-    name="Atelier de Criatividade",
-    series="es_2387994",
-    # Mon 7 Sep 2026 to Mon 28 Jun 2027, weekly on Mondays.
-    months=[
-        ("2026-09", "September", "tt_6744842"),
-        ("2026-10", "October",   "tt_6744843"),
-        ("2026-11", "November",  "tt_6744844"),
-        ("2026-12", "December",  "tt_6744845"),
-        ("2027-01", "January",   "tt_6744846"),
-        ("2027-02", "February",  "tt_6744847"),
-        ("2027-03", "March",     "tt_6744848"),
-        ("2027-04", "April",     "tt_6744849"),
-        ("2027-05", "May",       "tt_6744850"),
-        ("2027-06", "June",      "tt_6744851"),
-    ],
-    # Room holds 10; every month is 8 because two places were taken in person.
-    capacity={
-        "2026-09": 8, "2026-10": 8, "2026-11": 8, "2026-12": 8, "2027-01": 8,
-        "2027-02": 8, "2027-03": 8, "2027-04": 8, "2027-05": 8, "2027-06": 8,
-    },
-    # Franco chose (2026-08-30) not to skip any date, including 5 Oct 2026
-    # (Implantacao da Republica), the Christmas Mondays, Carnival and Easter.
-    # If a session is cancelled, remove its line here AND pull the ticket
-    # type, or the script will keep it on sale.
-    sessions=[
-        ("2026-09-07", "tt_6744873"), ("2026-09-14", "tt_6744874"),
-        ("2026-09-21", "tt_6744875"), ("2026-09-28", "tt_6744876"),
-        ("2026-10-05", "tt_6744877"), ("2026-10-12", "tt_6744878"),
-        ("2026-10-19", "tt_6744879"), ("2026-10-26", "tt_6744880"),
-        ("2026-11-02", "tt_6744881"), ("2026-11-09", "tt_6744882"),
-        ("2026-11-16", "tt_6744883"), ("2026-11-23", "tt_6744884"),
-        ("2026-11-30", "tt_6744885"), ("2026-12-07", "tt_6744886"),
-        ("2026-12-14", "tt_6744887"), ("2026-12-21", "tt_6744888"),
-        ("2026-12-28", "tt_6744889"), ("2027-01-04", "tt_6744890"),
-        ("2027-01-11", "tt_6744891"), ("2027-01-18", "tt_6744892"),
-        ("2027-01-25", "tt_6744893"), ("2027-02-01", "tt_6744894"),
-        ("2027-02-08", "tt_6744895"), ("2027-02-15", "tt_6744896"),
-        ("2027-02-22", "tt_6744897"), ("2027-03-01", "tt_6744898"),
-        ("2027-03-08", "tt_6744899"), ("2027-03-15", "tt_6744900"),
-        ("2027-03-22", "tt_6744901"), ("2027-03-29", "tt_6744902"),
-        ("2027-04-05", "tt_6744903"), ("2027-04-12", "tt_6744904"),
-        ("2027-04-19", "tt_6744905"), ("2027-04-26", "tt_6744906"),
-        ("2027-05-03", "tt_6744907"), ("2027-05-10", "tt_6744908"),
-        ("2027-05-17", "tt_6744909"), ("2027-05-24", "tt_6744910"),
-        ("2027-05-31", "tt_6744911"), ("2027-06-07", "tt_6744912"),
-        ("2027-06-14", "tt_6744913"), ("2027-06-21", "tt_6744914"),
-        ("2027-06-28", "tt_6744915"),
-    ],
-)
-
 ONDA = Course(
     key="onda",
     name="Uma Onda na Mente",
@@ -179,7 +127,14 @@ ONDA = Course(
     ],
 )
 
-COURSES = [ATELIER, ONDA]
+# Atelier de Criatividade (es_2387994) was removed from here 2026-09-09.
+# Franco confirmed the monthly ticket type was intentionally deleted from
+# Ticket Tailor, leaving only per-session "Sessao avulsa" drop-in tickets.
+# With a single ticket type per seat, Ticket Tailor's own quantity cap
+# already prevents overselling that session -- there is no second ticket
+# type competing for the same seats, so this script has nothing left to
+# reconcile for that course. See git history for the old Course() config.
+COURSES = [ONDA]
 
 
 def today():

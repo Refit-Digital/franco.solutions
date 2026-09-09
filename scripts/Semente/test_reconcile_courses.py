@@ -78,9 +78,16 @@ def wrote(ws, tid):
 
 # Each course at its own real capacity, so the arithmetic is checked against
 # the number that will actually be live.
+#
+# Atelier de Criatividade was removed from R.COURSES 2026-09-09 (its monthly
+# ticket type was deleted; a single-ticket-type course needs no dual-ticket
+# reconciliation -- see reconcile_courses.py). This loop only covers courses
+# shaped like Uma Onda na Mente (a monthly ticket plus per-session drop-ins).
+# The cross-course failure-isolation invariant that used to run against
+# Atelier + Onda together is re-tested below with a synthetic second course,
+# so removing Atelier from production config does not drop that coverage.
 CASES = [
-    (R.ATELIER, 8,  "2027-01"),
-    (R.ONDA,    10, "2027-01"),
+    (R.ONDA, 10, "2027-01"),
 ]
 
 for course, CAP, MONTH in CASES:
@@ -208,32 +215,48 @@ def run_main(argv, per_series):
 
 DAY = "2027-01-05"
 
-quiet = {R.ATELIER.series: fake_box_office(R.ATELIER, 8),
-         R.ONDA.series: fake_box_office(R.ONDA, 10)}
+quiet = {R.ONDA.series: fake_box_office(R.ONDA, 10)}
 code, out, ws = run_main(["--apply", "--today", DAY], quiet)
 check("main: quiet run exits 0 and writes nothing", code == 0 and ws == [],
       repr(ws))
 for c in R.COURSES:
     check("main: %s appears in the output" % c.key, c.name in out)
 
-# A stale config on the FIRST course must not stop the second from being
-# reconciled. This is what the two always() workflow steps used to do.
-broken = dict(quiet)
-broken[R.ATELIER.series] = fake_box_office(
-    R.ATELIER, 8, drop_ids=set(list(dict(R.ATELIER.sessions).values())[:5]))
-onda_month = R.ONDA.months[3][0]
-broken[R.ONDA.series] = fake_box_office(R.ONDA, 10,
-                                        month_sales={onda_month: 3})
-code, out, ws = run_main(["--apply", "--today", DAY], broken)
-check("main: a broken course exits 1", code == 1)
-check("main: the healthy course is still reconciled", ws != [], repr(ws))
-check("main: nothing written for the broken course",
-      all(R.ATELIER.series not in p for p, _ in ws), repr(ws[:3]))
+# Cross-course failure isolation: a stale config on one course must not stop
+# another course from being reconciled. This used to be tested with the real
+# Atelier + Onda pair; Atelier was removed from R.COURSES 2026-09-09 (its
+# monthly ticket type was deleted, so it no longer needs this script -- see
+# reconcile_courses.py). A synthetic course stands in for "some course, badly
+# configured" so this invariant stays covered without resurrecting dead
+# production config just to exercise it.
+FAKE_BROKEN = R.Course(
+    key="brokentest",
+    name="Synthetic Broken Course",
+    series="es_synthetic_broken",
+    months=[("2027-01", "January", "tt_fake_month")],
+    capacity={"2027-01": 5},
+    sessions=[("2027-01-05", "tt_fake_session")],
+)
+real_courses = R.COURSES
+R.COURSES = [FAKE_BROKEN, R.ONDA]
+try:
+    broken = {FAKE_BROKEN.series: fake_box_office(FAKE_BROKEN, 5,
+                                                  drop_ids=set())}
+    onda_month = R.ONDA.months[3][0]
+    broken[R.ONDA.series] = fake_box_office(R.ONDA, 10,
+                                            month_sales={onda_month: 3})
+    code, out, ws = run_main(["--apply", "--today", DAY], broken)
+    check("main: a broken course exits 1", code == 1)
+    check("main: the healthy course is still reconciled", ws != [], repr(ws))
+    check("main: nothing written for the broken course",
+          all(FAKE_BROKEN.series not in p for p, _ in ws), repr(ws[:3]))
 
-code, out, ws = run_main(["--apply", "--today", DAY, "--course", "onda"],
-                         quiet)
-check("main: --course runs only that course",
-      R.ONDA.name in out and R.ATELIER.name not in out)
+    code, out, ws = run_main(["--apply", "--today", DAY, "--course", "onda"],
+                             broken)
+    check("main: --course runs only that course",
+          R.ONDA.name in out and FAKE_BROKEN.name not in out)
+finally:
+    R.COURSES = real_courses
 
 print()
 if failures:
