@@ -15,6 +15,11 @@
 #
 # Do NOT add a .nojekyll file to this repo: it bypasses Jekyll entirely and
 # would serve everything again, this list included.
+#
+# Jekyll also builds the site itself. index.html, it/index.html and
+# pt/index.html are front matter only, each naming a language; the page is
+# _layouts/franco.html, rendered once per language. Without Jekyll those three
+# addresses would serve nothing but their front matter.
 exclude:
   - scripts
   - franco-solutions_5.backup.html
