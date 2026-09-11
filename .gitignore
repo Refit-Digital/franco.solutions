@@ -1,3 +1,9 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Local prospect CRM — never publish
+prospects/
+
+# Invoices — never publish
+Invoices/
