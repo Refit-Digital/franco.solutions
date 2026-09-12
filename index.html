@@ -61,7 +61,14 @@ src:url(data:font/woff2;base64,d09GMgABAAAAABQMAA4AAAAAJ3AAABO4AAIAxAAAAAAAAAAAA
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html,body{overflow-x:hidden}
+/* Sideways guard. overflow-x:hidden computes overflow-y:auto, which made body
+   the nav's scroll container: the sticky nav then stuck to a box that never
+   scrolls and rode the page up. clip never makes a scroll container, so the
+   viewport stays the scrollport and .nav sticks. The hidden line is the
+   fallback for Safari < 16: on html alone it propagates to the viewport and
+   leaves no scroll container between the nav and the viewport. */
+html{overflow-x:hidden}
+html,body{overflow-x:clip}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;
