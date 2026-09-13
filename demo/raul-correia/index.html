@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<!--
+  Raul Correia – Representações, Lda · proposta de novo website (franco.solutions, 2026-09-13)
+
+  IMAGENS (todas locais em images/, nada depende de CDNs externos):
+  - sede.webp / sede-og.jpg ... foto da sede, do site atual (raulcorreia.pt/_frame/foto1.jpg). Só 940×350 px:
+                                 pedir ao cliente uma foto da fachada em alta resolução.
+  - piscinas-*.webp, eletrobombas, acumuladores, rega, renovaveis, caldeiras, ferramentas
+                                 ... banners do carrossel do site atual (reduzidos a 640 px).
+  - centro2020.png ............. barra de cofinanciamento que aparece no site atual (versão 160 px — pedir original).
+
+  VERIFICAR com o cliente (procurar "VERIFY"):
+  - Número de WhatsApp (o site atual mostra o logótipo sem número; usado o telemóvel da sede).
+  - Horário com pausa de almoço (Google) vs. horário contínuo (site atual). Sábado da loja (um cliente diz que estava fechado).
+  - Link Termicol (não respondeu no teste).
+-->
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="last-modified" content="2026-09-13">
+<meta name="robots" content="noindex,nofollow">
+<title>Raul Correia — Material de canalização, piscinas, rega e climatização | Arganil e Coimbra</title>
+<meta name="description" content="Raul Correia – Representações, Lda: distribuidor oficial de 40 marcas de canalização, eletrobombas, piscinas, rega automática, caldeiras e energia solar. Sede em Arganil, loja em Coimbra. Orçamento grátis e entrega em obra sem encargos. Tlf. 239 458 001.">
+<meta name="theme-color" content="#1b1846">
+<link rel="canonical" href="https://raulcorreia.pt/">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:url" content="https://franco.solutions/demo/raul-correia/">
+<meta property="og:title" content="Raul Correia — Tudo o que faz a água correr">
+<meta property="og:description" content="Distribuidor oficial de material de canalização, piscinas, rega, eletrobombas e climatização desde 1990. Arganil e Coimbra.">
+<meta property="og:image" content="https://franco.solutions/demo/raul-correia/images/sede-og.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231b1846'/><circle cx='50' cy='54' r='30' fill='none' stroke='%23e0342a' stroke-width='7'/><path d='M22 38c12 0 20 8 26 20 10-20 24-34 40-42-16 14-26 34-32 64-6-18-16-32-34-42z' fill='%23fff'/></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/sede.webp" fetchpriority="high">
+
+<style>
+:root{
+  --alu:#e9ebee; --alu-2:#dde0e5; --paper:#f6f7f8;
+  --ink:#1b1846; --ink-soft:#4a4868; --night:#13112f; --night-2:#1d1a45;
+  --signal:#d22b21; --signal-dark:#a91d15;
+  --line:rgba(27,24,70,.14); --line-dark:rgba(233,235,238,.14);
+  --ok:#1f9d55;
+  --display:'Archivo',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --pad:clamp(1.15rem,4vw,2.5rem);
+  --max:78rem;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{overflow-x:clip}
+html{scroll-behavior:smooth;scroll-padding-top:5.5rem;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--display);font-size:1.0625rem;line-height:1.6;color:var(--ink);background:var(--paper);font-stretch:100%;padding-bottom:4.25rem}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0;line-height:.98;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+p{margin:0}
+.wrap{width:100%;max-width:var(--max);margin-inline:auto;padding-inline:var(--pad)}
+.mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.legal-note{display:block;font-family:var(--mono);font-size:.625rem;letter-spacing:.02em;opacity:.72;text-transform:none;font-weight:400}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px}
+.proposal{background:var(--signal);color:#fff;font-size:.8rem;line-height:1.35;text-align:center;padding:.5rem var(--pad)}
+.proposal a{color:#fff;font-weight:700}
+.skip{position:absolute;left:1rem;top:-4rem;background:var(--ink);color:#fff;padding:.75rem 1rem;z-index:100}
+.skip:focus{top:1rem}
+
+/* ——— reveal ——— */
+.js .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ——— buttons ——— */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:3.1rem;padding:.8rem 1.35rem;border:2px solid var(--ink);font:600 1rem/1.1 var(--display);text-decoration:none;color:var(--ink);background:transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.btn svg{width:1.15rem;height:1.15rem;flex:none}
+.btn:hover{background:var(--ink);color:var(--alu)}
+.btn-red{background:var(--signal);border-color:var(--signal);color:#fff}
+.btn-red:hover{background:var(--signal-dark);border-color:var(--signal-dark);color:#fff}
+.btn-light{border-color:var(--alu);color:var(--alu)}
+.btn-light:hover{background:var(--alu);color:var(--night)}
+
+/* ——— top bar (desktop) ——— */
+.topbar{display:none;background:var(--night);color:#cfd2dc}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;min-height:2.5rem}
+.topbar a{text-decoration:none;display:inline-flex;align-items:center;min-height:2.5rem}
+.topbar a:hover{color:#fff}
+.topbar-l,.topbar-r{display:flex;gap:1.5rem;align-items:center}
+.status{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap}
+.dot{position:relative;width:.5rem;height:.5rem;border-radius:50%;background:#8a8da0;flex:none}
+.status.open .dot{background:var(--ok)}
+.status.open .dot::before,.status.open .dot::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border:2px solid var(--ok);border-radius:50%;animation:ripple 2s linear infinite}
+.status.open .dot::after{animation-delay:1s}
+@keyframes ripple{0%{opacity:.7;width:100%;height:100%}100%{opacity:0;width:300%;height:300%}}
+
+/* ——— header ——— */
+.header{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:border-color .3s}
+/* blur lives on a pseudo-element: backdrop-filter on .header itself would trap the fixed mobile menu inside it */
+.header::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(233,235,238,.86);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4)}
+.header.scrolled{border-bottom-color:var(--line)}
+.header .wrap{display:flex;align-items:center;justify-content:space-between;min-height:4.5rem;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;min-height:44px}
+.logo svg{width:2.6rem;height:2.6rem;flex:none}
+.logo b{display:block;font-weight:900;font-stretch:118%;font-size:1.2rem;letter-spacing:-.01em;line-height:1}
+.logo small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-top:.3rem}
+.nav{position:fixed;inset:0;overscroll-behavior:contain;background:var(--night);color:var(--alu);display:flex;flex-direction:column;justify-content:center;padding:var(--pad);transform:translateY(-100%);visibility:hidden;transition:transform .45s cubic-bezier(.7,0,.2,1),visibility 0s .45s;z-index:60}
+.nav.open{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.7,0,.2,1)}
+.nav ul{list-style:none;margin:0;padding:0}
+.nav li a{display:flex;align-items:baseline;gap:1rem;padding:.35rem 0;font-size:clamp(2.2rem,9vw,3.5rem);font-weight:800;font-stretch:75%;text-decoration:none;min-height:44px}
+.nav li a span{font-family:var(--mono);font-size:.8rem;color:var(--signal);font-stretch:100%}
+.nav .btn{margin-top:2rem;align-self:flex-start}
+.burger{position:relative;z-index:70;width:3rem;height:3rem;display:grid;place-items:center;background:none;border:0;cursor:pointer;color:var(--ink)}
+.burger i{display:block;width:1.6rem;height:2px;background:currentColor;position:relative;transition:background .2s}
+.burger i::before,.burger i::after{content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;transition:transform .3s}
+.burger i::before{top:-7px}.burger i::after{top:7px}
+.burger[aria-expanded=true]{color:var(--alu)}
+.burger[aria-expanded=true] i{background:transparent}
+.burger[aria-expanded=true] i::before{transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded=true] i::after{transform:translateY(-7px) rotate(-45deg)}
+
+/* ——— hero: aluminium cladding ——— */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(100deg,#eef0f3 0%,#e2e5ea 45%,#eceef1 60%,#dcdfe4 100%);
+  padding-block:clamp(2.5rem,7vw,5.5rem) 0}
+.hero .btn:not(.btn-red){background:var(--paper)}
+.hero .btn:not(.btn-red):hover{background:var(--ink)}
+.hero-grid{display:grid;gap:2.5rem;align-items:center}
+.eyebrow{display:flex;flex-wrap:wrap;gap:.4rem 1rem;color:var(--ink-soft);margin-bottom:1.5rem}
+.eyebrow span+span::before{content:"/";margin-right:1rem;color:var(--signal)}
+.hero h1{font-size:clamp(3.1rem,11.5vw,7.6rem);font-stretch:72%;font-weight:850;letter-spacing:-.03em;line-height:.9;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--signal);position:relative;white-space:nowrap}
+.hero-lead{margin-top:1.6rem;max-width:36rem;font-size:clamp(1.05rem,1.8vw,1.22rem);color:var(--ink-soft)}
+.hero-lead strong{color:var(--ink);font-weight:650}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.hero-cta .btn{flex:1 1 15rem}
+.call small{display:block}
+.ratings{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin-top:1.75rem}
+.ratings a{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;text-decoration:none;font-size:.9rem;color:var(--ink-soft)}
+.ratings a:hover{color:var(--ink)}
+.ratings b{color:var(--ink);font-weight:750}
+.star{width:1rem;height:1rem;color:#e8a317}
+
+/* red window frame — the building's signature */
+.window{position:relative;margin:0;border:clamp(8px,1.2vw,12px) solid var(--signal);box-shadow:inset 0 0 0 2px #2a1a1a,0 30px 60px -30px rgba(19,17,47,.45);background:var(--night)}
+.window img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:62% 50%}
+.window figcaption{position:absolute;left:-12px;bottom:-12px;transform:translateY(100%);padding-top:.8rem;color:var(--ink-soft);display:flex;flex-direction:column;gap:.15rem}
+.hero-fig{position:relative;padding-bottom:3.25rem}
+/* cladding seams: only on the wall behind the photo, fading out before the text column and stopping above the caption */
+.hero-fig::before{content:"";display:none;position:absolute;z-index:-1;top:-12rem;bottom:3.25rem;left:-6rem;right:-50vw;pointer-events:none;
+  background:repeating-linear-gradient(180deg,transparent 0 119px,rgba(27,24,70,.075) 119px 120px,rgba(255,255,255,.7) 120px 121px);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6rem);mask-image:linear-gradient(90deg,transparent,#000 6rem)}
+
+.specs{margin-top:clamp(2.5rem,6vw,4.5rem);display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.spec{padding:1.25rem 1rem 1.5rem 0;border-bottom:1px solid var(--line)}
+.spec:nth-child(odd){border-right:1px solid var(--line)}
+.spec:nth-child(even){padding-left:1rem}
+.spec b{display:block;font-size:clamp(2.2rem,6vw,3.4rem);font-stretch:70%;font-weight:800;line-height:1;letter-spacing:-.02em}
+.spec b sup{font-size:.45em;color:var(--signal);vertical-align:top;margin-left:.1em}
+.spec span{display:block;margin-top:.45rem;font-size:.9rem;color:var(--ink-soft);line-height:1.35}
+
+/* ——— section scaffolding ——— */
+.sec{padding-block:clamp(4rem,10vw,7.5rem)}
+.sec-head{display:grid;gap:1.25rem;margin-bottom:clamp(2.25rem,5vw,3.75rem)}
+.label{display:flex;align-items:center;gap:.75rem;color:var(--signal)}
+.label::after{content:"";height:1px;width:3rem;background:currentColor}
+.sec h2{font-size:clamp(2.4rem,7vw,4.8rem);font-stretch:74%;line-height:.94}
+.sec-intro{max-width:34rem;color:var(--ink-soft)}
+
+/* ——— gamas: catalogue index ——— */
+.index{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink);counter-reset:g}
+.row{position:relative;display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:.4rem .6rem;padding:1.35rem 0;border-bottom:1px solid var(--line)}
+.row .txt{display:contents}
+.row .n{font-family:var(--mono);font-size:.72rem;line-height:1;color:var(--signal)}
+.row h3{font-size:clamp(1.65rem,4.6vw,2.7rem);font-stretch:78%;font-weight:750;letter-spacing:-.015em;line-height:1;transition:transform .35s cubic-bezier(.2,.7,.2,1),color .2s}
+.row p{grid-column:1/-1;color:var(--ink-soft);font-size:.98rem;max-width:40rem}
+.row .brands-line{grid-column:1/-1;font-family:var(--mono);font-size:.72rem;letter-spacing:.03em;color:var(--ink-soft);margin-top:.35rem}
+.row .see{grid-column:1/-1;justify-self:start;margin-top:.5rem;display:inline-flex;align-items:center;gap:.4rem;min-height:44px;background:none;border:0;padding:0;font:600 .92rem var(--display);color:var(--ink);cursor:pointer;text-decoration:underline;text-decoration-color:var(--signal);text-underline-offset:.3em;text-decoration-thickness:2px}
+.row .see:hover{color:var(--signal)}
+.row .see svg{width:1rem;height:1rem}
+.peek{position:fixed;left:0;top:0;z-index:40;width:22rem;pointer-events:none;border:8px solid var(--signal);box-shadow:inset 0 0 0 2px #2a1a1a,0 24px 50px -20px rgba(19,17,47,.55);background:var(--night);opacity:0;scale:.9;transition:opacity .2s,scale .25s;will-change:transform}
+.peek.on{opacity:1;scale:1}
+.peek img{width:100%;aspect-ratio:640/238;object-fit:cover}
+
+/* ——— serviço: pipeline ——— */
+.dark{background:var(--night);color:#d7d9e2;position:relative;overflow:hidden}
+.dark h2,.dark h3{color:#fff}
+.dark .sec-intro{color:#aeb1c2}
+.dark::before{content:"";position:absolute;inset:0;background:radial-gradient(60rem 30rem at 85% -10%,rgba(210,43,33,.16),transparent 60%);pointer-events:none}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;position:relative}
+.step{position:relative;padding:0 0 2.5rem 3.75rem}
+.step::before{content:"";position:absolute;left:1.05rem;top:2.5rem;bottom:0;width:6px;background:var(--night-2);border-radius:3px}
+.step:last-child::before{display:none}
+.step::after{content:"";position:absolute;left:1.05rem;top:2.5rem;width:6px;height:0;background:linear-gradient(var(--signal),#ff6a3d);border-radius:3px;transition:height 1s ease}
+.steps.in .step::after{height:calc(100% - 2.5rem)}
+.steps.in .step:nth-child(2)::after{transition-delay:.35s}
+.steps.in .step:nth-child(3)::after{transition-delay:.7s}
+.step:last-child::after{display:none}
+.node{position:absolute;left:0;top:0;width:2.5rem;height:2.5rem;display:grid;place-items:center;border:2px solid #fff;border-radius:50%;background:var(--night);color:#fff}
+.node svg{width:1.2rem;height:1.2rem}
+.step .mono{color:#ff7a5c;display:block;margin:.35rem 0 .6rem}
+.step h3{font-size:clamp(1.5rem,3vw,1.9rem);font-stretch:80%;margin-bottom:.6rem}
+.step p{color:#b9bccb;max-width:24rem}
+.who{margin-top:clamp(2.5rem,6vw,4rem);padding-top:1.75rem;border-top:1px solid var(--line-dark);display:flex;flex-wrap:wrap;gap:.75rem 2rem;align-items:baseline}
+.who .mono{color:#8f93a8}
+.who strong{font-size:clamp(1.3rem,3vw,1.75rem);font-stretch:80%;font-weight:700;color:#fff}
+.who strong+strong::before{content:"·";color:var(--signal);margin-right:2rem}
+
+/* ——— marcas ——— */
+.alu{background:var(--alu)}
+.filters{display:grid;gap:1rem;margin-bottom:1.75rem}
+.search{position:relative;max-width:26rem}
+.search svg{position:absolute;left:1rem;top:50%;translate:0 -50%;width:1.1rem;height:1.1rem;color:var(--ink-soft);pointer-events:none}
+.search input{width:100%;min-height:3.1rem;padding:.75rem 1rem .75rem 2.8rem;border:2px solid var(--ink);background:var(--paper);font:500 1rem var(--display);color:var(--ink);border-radius:0}
+.search input::placeholder{color:#6f6d88}
+.chips{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.chip{flex:none;min-height:44px;padding:.5rem 1rem;border:1px solid var(--line);background:var(--paper);font:500 .9rem var(--display);color:var(--ink);cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.count{color:var(--ink-soft)}
+.brands{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,13.5rem),1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.brand{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:1.25rem;min-height:8.5rem;padding:1.1rem 1.1rem 1rem;text-decoration:none;box-shadow:inset -1px -1px 0 var(--line);background:var(--alu);transition:background .2s,color .2s}
+.brand b{font-size:1.55rem;font-stretch:88%;font-weight:750;letter-spacing:-.01em;line-height:1.05}
+.brand .mono{font-size:.66rem;color:var(--ink-soft);line-height:1.4;text-transform:none;letter-spacing:.02em}
+.brand svg{position:absolute;top:1rem;right:1rem;width:1.1rem;height:1.1rem;color:var(--signal);transition:transform .25s}
+.brand:hover{background:var(--ink);color:#fff}
+.brand:hover .mono{color:#b9bccb}
+.brand:hover svg{transform:translate(3px,-3px)}
+.empty{padding:2rem 0;color:var(--ink-soft)}
+
+/* ——— empresa ——— */
+.about{display:grid;gap:3rem}
+.about-text p{font-size:clamp(1.15rem,2.2vw,1.4rem);line-height:1.5;color:var(--ink)}
+.about-text p+p{margin-top:1.25rem;font-size:1.05rem;color:var(--ink-soft)}
+.facts{margin:0;border-top:2px solid var(--ink)}
+.facts div{display:grid;grid-template-columns:8.5rem 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding-top:.25rem}
+.facts dd{margin:0;font-weight:550}
+.reviews{margin-top:clamp(3.5rem,8vw,6rem);display:grid;gap:2rem}
+.reviews-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem}
+.reviews-head h3{font-size:clamp(1.8rem,4vw,2.6rem);font-stretch:78%}
+.quotes{display:grid;gap:1.5rem}
+.quote{margin:0;padding-top:1.25rem;border-top:4px solid var(--signal)}
+.quote blockquote{margin:0;font-size:1.15rem;line-height:1.5}
+.quote figcaption{margin-top:1rem;display:flex;flex-wrap:wrap;gap:.25rem .75rem;align-items:center;font-size:.9rem;color:var(--ink-soft)}
+.quote figcaption b{color:var(--ink)}
+.stars{display:inline-flex;gap:1px;color:#e8a317}
+.stars svg{width:.9rem;height:.9rem}
+
+/* ——— faq ——— */
+.faq-grid{display:grid;gap:2.5rem}
+.faq{border-top:2px solid var(--ink)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;min-height:44px;padding:1.2rem 0;font-size:clamp(1.1rem,2.2vw,1.3rem);font-weight:650;cursor:pointer}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary i{position:relative;flex:none;width:1.9rem;height:1.9rem;border:2px solid var(--ink);border-radius:50%}
+.faq summary i::before,.faq summary i::after{content:"";position:absolute;left:50%;top:50%;width:.7rem;height:2px;background:currentColor;translate:-50% -50%;transition:rotate .3s}
+.faq summary i::after{rotate:90deg}
+.faq details[open] summary i{background:var(--signal);border-color:var(--signal);color:#fff}
+.faq details[open] summary i::after{rotate:0deg}
+.faq summary:hover{color:var(--signal)}
+.faq .ans{padding:0 2.5rem 1.4rem 0;color:var(--ink-soft);max-width:44rem}
+.faq .ans a{color:var(--ink);text-decoration-color:var(--signal);text-underline-offset:.2em}
+
+/* ——— contactos: rating plates ——— */
+.plates{display:grid;gap:1.5rem}
+.plate{position:relative;min-width:0;background:linear-gradient(160deg,#f4f5f7,#dfe2e7);border:1px solid #c5c9d1;box-shadow:inset 0 1px 0 #fff,0 1px 0 rgba(0,0,0,.05),0 20px 40px -28px rgba(19,17,47,.45);padding:1.4rem 1rem}
+.plate::before,.plate::after{content:"";position:absolute;top:.6rem;width:.6rem;height:.6rem;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#9aa0ab 60%,#6d7380);box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
+.plate::before{left:.6rem}.plate::after{right:.6rem}
+.plate-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem;background:var(--ink);color:#fff;margin:.35rem -.2rem 1rem;padding:.75rem 1rem}
+.plate-top h3{color:#fff;font-size:1.5rem;font-stretch:90%;font-weight:800;letter-spacing:.01em;text-transform:uppercase}
+.plate-top h3 small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:#b9bccb;font-weight:400;margin-bottom:.2rem}
+.plate-top .status{font-family:var(--mono);font-size:.7rem;color:#dfe1ea}
+.plate dl{margin:0;display:grid;grid-template-columns:1fr}
+.plate dl>div{display:grid;grid-template-columns:1fr;gap:.2rem;padding:.7rem .2rem;border-bottom:1px dashed #b7bcc6}
+.plate dt{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:#595872}
+.plate dd{margin:0;min-width:0;font-weight:560;line-height:1.4;overflow-wrap:anywhere}
+.plate dd a{text-decoration:none;display:inline-block;min-height:28px}
+.plate dd a:hover{color:var(--signal)}
+.plate dd a.big{font-size:1.25rem;font-weight:750;font-stretch:90%}
+.hours{border-collapse:collapse;font-size:.95rem}
+.hours td{padding:.15rem 1rem .15rem 0;vertical-align:top;white-space:nowrap}
+.hours td:first-child{color:#595872}
+.hours tr.today td{color:var(--signal);font-weight:700}
+.plate-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.1rem}
+.plate-actions .btn{flex:1 1 7rem;min-height:2.9rem;padding:.6rem .9rem;font-size:.92rem;border-width:1.5px}
+.plate-actions .btn{padding-inline:.6rem;gap:.45rem;font-size:.88rem;white-space:nowrap}
+.plate-actions .btn svg{display:none}
+@media (min-width:24em){.plate-actions .btn svg{display:block}}
+.holiday{margin-top:1rem;color:var(--ink-soft);font-size:.85rem}
+
+.quote-form{margin-top:clamp(3rem,7vw,5rem);background:var(--night);color:#d7d9e2;padding:clamp(1.5rem,5vw,3.5rem);display:grid;gap:2rem;position:relative}
+.quote-form h3{color:#fff;font-size:clamp(2rem,5vw,3.2rem);font-stretch:74%}
+.quote-form .intro p{margin-top:1rem;color:#aeb1c2;max-width:24rem}
+.quote-form .intro .mono{color:#ff7a5c}
+form{display:grid;gap:1rem}
+.f2{display:grid;gap:1rem}
+.field label,.field legend{display:block;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:#aeb1c2;margin-bottom:.4rem}
+.field input:not([type=radio]),.field select,.field textarea{width:100%;min-height:3rem;padding:.7rem .9rem;background:var(--night-2);border:1px solid #3a3768;border-bottom:2px solid #6c6a95;color:#fff;font:500 1rem var(--display);border-radius:0;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .8rem center;background-size:1.1rem;padding-right:2.5rem}
+.field textarea{min-height:8rem;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-bottom-color:var(--signal);background:#26225a}
+.field [aria-invalid=true]{border-bottom-color:#ff7a5c}
+fieldset.field{border:0;margin:0;padding:0}
+.dest{display:grid;gap:.9rem;padding-top:.4rem}
+.dest label{position:relative;display:flex;align-items:center;gap:.85rem;min-height:3.5rem;padding:.7rem 1rem;border:2px solid #3a3768;cursor:pointer;text-transform:none;font:500 .98rem var(--display);letter-spacing:0;color:#aeb1c2;margin:0;transition:border-color .2s,background .2s,color .2s}
+.dest label:hover{border-color:#6c6a95}
+.dest label small{color:#8f93a8;font-family:var(--mono);font-size:.7rem}
+.dest input{appearance:none;-webkit-appearance:none;flex:none;display:grid;place-items:center;width:1.4rem;height:1.4rem;margin:0;border:2px solid #8f8cb8;border-radius:50%;background:transparent;cursor:pointer;transition:border-color .2s,background .2s}
+.dest input::before{content:"";width:.55rem;height:.55rem;border-radius:50%;background:#fff;scale:0;transition:scale .2s}
+.dest input:checked{border-color:var(--signal);background:var(--signal)}
+.dest input:checked::before{scale:1}
+.dest input:focus-visible{outline:none}
+.dest label:has(input:focus-visible){outline:3px solid #ff7a5c;outline-offset:2px}
+.dest label:has(input:checked){border-color:var(--signal);background:rgba(210,43,33,.2);color:#fff}
+.dest label:has(input:checked) small{color:#ffd2c7}
+.dest label:has(input:checked)::after{content:"Selecionado";position:absolute;top:0;right:.75rem;translate:0 -50%;padding:.2rem .5rem;background:var(--signal);color:#fff;font:600 .62rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.form-foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;margin-top:.5rem}
+.form-foot p{font-size:.82rem;color:#aeb1c2;max-width:22rem}
+.form-foot button.linkish{background:none;border:0;padding:0;color:#fff;text-decoration:underline;font:inherit;cursor:pointer}
+.form-msg{padding:1rem;border-left:4px solid var(--ok);background:rgba(31,157,85,.12);color:#fff;font-size:.95rem}
+.form-msg.err{border-left-color:#ff7a5c;background:rgba(255,122,92,.1)}
+.form-msg button{margin-left:.25rem;background:none;border:1px solid #fff;color:#fff;padding:.2rem .6rem;cursor:pointer;font:inherit;min-height:32px}
+
+/* ——— footer ——— */
+.footer{background:var(--night);color:#aeb1c2;padding-top:clamp(3rem,7vw,5rem);border-top:1px solid var(--line-dark);overflow:hidden}
+.foot-grid{display:grid;gap:2rem;font-size:.92rem}
+.foot-grid h4{margin:0 0 .75rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;font-weight:600}
+.foot-grid a{text-decoration:none;display:inline-flex;min-height:36px;align-items:center}
+.foot-grid a:hover,.foot-grid button:hover{color:#fff}
+.foot-grid ul{list-style:none;margin:0;padding:0}
+.foot-grid button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;min-height:36px;text-align:left}
+.cofin{margin-top:1rem;background:#fff;padding:.5rem;display:inline-block}
+.wm{container-type:inline-size}
+.wordmark{margin-top:clamp(3rem,7vw,5rem);font-size:13.4cqi;font-weight:900;font-stretch:125%;letter-spacing:-.045em;line-height:1;padding-bottom:clamp(1rem,3vw,2.25rem);color:transparent;-webkit-text-stroke:1px rgba(233,235,238,.28);white-space:nowrap;user-select:none;translate:-.04em 0}
+.foot-bottom{border-top:1px solid var(--line-dark);padding-block:1.25rem;font-size:.8rem;background:var(--night)}
+.foot-bottom .wrap{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;justify-content:space-between}
+.foot-bottom a{color:#fff}
+
+/* ——— mobile action bar ——— */
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:45;display:grid;grid-template-columns:1fr 1fr 1.25fr;background:var(--night);border-top:1px solid var(--line-dark);padding-bottom:env(safe-area-inset-bottom)}
+.actionbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem;min-height:4.25rem;text-decoration:none;color:#fff;font-size:.78rem;font-weight:600}
+.actionbar a+a{border-left:1px solid var(--line-dark)}
+.actionbar a:last-child{background:var(--signal)}
+.actionbar svg{width:1.3rem;height:1.3rem}
+
+/* ——— flow rail (large screens) ——— */
+.rail{display:none}
+
+/* ——— dialogs ——— */
+dialog{max-width:44rem;width:calc(100% - 2rem);max-height:85vh;border:0;padding:0;background:var(--paper);color:var(--ink);box-shadow:0 40px 80px -20px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(19,17,47,.7);backdrop-filter:blur(3px)}
+.dlg-head{position:sticky;top:0;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.5rem;background:var(--ink);color:#fff}
+.dlg-head h2{color:#fff;font-size:1.4rem;font-stretch:85%}
+.dlg-head button{width:44px;height:44px;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;font-size:1.4rem;cursor:pointer}
+.dlg-body{padding:1.5rem;font-size:.95rem;color:var(--ink-soft)}
+.dlg-body h3{font-size:1.15rem;margin:1.5rem 0 .5rem;color:var(--ink);font-stretch:90%}
+.dlg-body p+p{margin-top:.75rem}
+
+@media (min-width:30em){
+  .plate{padding:1.4rem}
+  .plate dl>div{grid-template-columns:6.25rem 1fr;gap:.75rem}
+  .plate dt{padding-top:.3rem}
+}
+/* ——— ≥ 640 ——— */
+@media (min-width:40em){
+  .specs{grid-template-columns:repeat(4,1fr)}
+  .spec,.spec:nth-child(even){padding:1.5rem 1.25rem 1.75rem}
+  .spec:first-child{padding-left:0}
+  .spec{border-right:1px solid var(--line)}
+  .spec:last-child{border-right:0}
+  .f2{grid-template-columns:1fr 1fr}
+  .dest{grid-template-columns:1fr 1fr}
+  .quotes{grid-template-columns:repeat(3,1fr)}
+  .foot-grid{grid-template-columns:repeat(2,1fr)}
+}
+/* ——— ≥ 900 ——— */
+@media (min-width:56.25em){
+  body{padding-bottom:0}
+  .actionbar{display:none}
+  .topbar{display:block}
+  .burger{display:none}
+  .nav{position:static;transform:none;visibility:visible;background:none;color:inherit;flex-direction:row;align-items:center;padding:0;gap:1.75rem;transition:none}
+  .nav ul{display:flex;gap:.25rem}
+  .nav li a{font-size:.95rem;font-weight:550;font-stretch:100%;padding:0 .7rem;align-items:center;position:relative}
+  .nav li a span{display:none}
+  .nav li a::after{content:"";position:absolute;left:.7rem;right:.7rem;bottom:.55rem;height:2px;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+  .nav li a:hover::after,.nav li a[aria-current=true]::after{transform:none}
+  .nav .btn{margin:0;min-height:2.75rem;padding:.6rem 1.1rem}
+  .hero-grid{grid-template-columns:1.15fr .85fr;gap:3.5rem}
+  .hero-cta .btn{flex:0 0 auto}
+  .window img{aspect-ratio:5/4}
+  .hero-fig::before{display:block}
+  .sec-head{grid-template-columns:1fr 1fr;align-items:end}
+  .sec-head .label{grid-column:1/-1}
+  .row{grid-template-columns:4rem 1.1fr .9fr auto;align-items:center;padding:1.6rem 0;gap:1.5rem}
+  .row .n{padding:0}
+  .row p,.row .brands-line{grid-column:auto}
+  .row .txt{display:grid;gap:.35rem}
+  .row .see{grid-column:auto;margin:0}
+  .row:hover h3{transform:translateX(.6rem);color:var(--signal)}
+  .steps{grid-template-columns:repeat(4,1fr)}
+  .step{padding:4rem 1.75rem 0 0}
+  .step::before{left:2.5rem;right:0;top:1.05rem;bottom:auto;width:auto;height:6px}
+  .step:last-child::before{display:block;right:30%;background:linear-gradient(90deg,var(--night-2),transparent)}
+  .step::after{left:2.5rem;top:1.05rem;width:0;height:6px;transition:width 1s ease;background:linear-gradient(90deg,var(--signal),#ff6a3d)}
+  .steps.in .step::after{width:calc(100% - 2.5rem);height:6px}
+  .filters{grid-template-columns:auto 1fr;align-items:center;gap:1.25rem}
+  .chips{flex-wrap:wrap;overflow:visible;padding:0}
+  .count{grid-column:1/-1}
+  .about{grid-template-columns:1.2fr .8fr;gap:5rem}
+  .faq-grid{grid-template-columns:.8fr 1.2fr;gap:5rem;align-items:start}
+  .faq-grid .sec-head{grid-template-columns:1fr;position:sticky;top:7rem}
+  .plates{grid-template-columns:1fr 1fr}
+  .quote-form{grid-template-columns:.75fr 1.25fr;gap:4rem}
+  .foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}
+}
+@media (min-width:87.5em){
+  .rail{display:block;position:fixed;left:1.25rem;top:22vh;bottom:22vh;width:6px;z-index:30;background:var(--alu-2);border-radius:3px;box-shadow:inset 0 1px 2px rgba(0,0,0,.15)}
+  .rail-fill{position:absolute;left:0;top:0;width:100%;height:0;border-radius:3px;background:linear-gradient(var(--signal),#ff6a3d)}
+  .rail a{position:absolute;left:50%;width:44px;height:44px;translate:-50% -50%;display:grid;place-items:center;text-decoration:none}
+  .rail a i{width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid #9ea3b0;transition:border-color .2s,background .2s,scale .2s}
+  .rail a.on i{border-color:var(--signal);background:var(--signal)}
+  .rail a span{position:absolute;left:38px;white-space:nowrap;font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--paper);padding:.2rem .45rem;opacity:0;translate:-6px 0;transition:opacity .2s,translate .2s;pointer-events:none}
+  .rail a:hover span,.rail a:focus-visible span{opacity:1;translate:0 0}
+  .rail a:hover i{scale:1.3}
+}
+@media (hover:none){.peek{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Organization",
+      "@id":"https://raulcorreia.pt/#org",
+      "name":"Raul Correia – Representações, Lda",
+      "alternateName":"Raul Correia",
+      "url":"https://raulcorreia.pt/",
+      "email":"geral@raulcorreia.pt",
+      "telephone":"+351239458001",
+      "foundingDate":"1990",
+      "taxID":"502460440",
+      "description":"Distribuidor oficial de material de condução de fluidos, climatização, rega automática, eletrobombas e equipamentos e produtos para piscinas, destinado a instaladores, armazenistas e revendedores. Sede em Arganil e loja em Coimbra.",
+      "knowsAbout":["Tubos e acessórios de canalização","Válvulas","Equipamentos de piscina","Tratamento de piscinas","Eletrobombas","Acumuladores e vasos de expansão","Rega automática","Energia solar térmica e fotovoltaica","Caldeiras a biomassa, lenha, gasóleo e gás","Tratamento de águas","Ventilação","Colas e vedantes","Ferramentas profissionais"],
+      "subOrganization":[{"@id":"https://raulcorreia.pt/#sede"},{"@id":"https://raulcorreia.pt/#loja"}]
+    },
+    {
+      "@type":["LocalBusiness","HomeAndConstructionBusiness"],
+      "@id":"https://raulcorreia.pt/#sede",
+      "name":"Raul Correia – Representações, Lda (Sede)",
+      "parentOrganization":{"@id":"https://raulcorreia.pt/#org"},
+      "image":"https://raulcorreia.pt/images/sede-og.jpg",
+      "url":"https://raulcorreia.pt/",
+      "telephone":"+351239458001",
+      "email":"geral@raulcorreia.pt",
+      "priceRange":"€€",
+      "address":{"@type":"PostalAddress","streetAddress":"Catraia dos Poços, EN17, nº 440","addressLocality":"S. Martinho da Cortiça, Arganil","postalCode":"3300-353","addressRegion":"Coimbra","addressCountry":"PT"},
+      "geo":{"@type":"GeoCoordinates","latitude":40.278206,"longitude":-8.12891},
+      "hasMap":"https://maps.google.com/?cid=4859966514740465351",
+      "areaServed":["Arganil","Coimbra","Tábua","Oliveira do Hospital","Góis","Penacova","Vila Nova de Poiares","Lousã","Pampilhosa da Serra","Região Centro"],
+      "openingHoursSpecification":[
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"13:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"19:00"}
+      ],
+      "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"45","bestRating":"5"},
+      "review":[
+        {"@type":"Review","author":{"@type":"Person","name":"Mariana Ribeiro"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Gostei muito da visita. Comprámos a piscina e não fazíamos ideia do mínimo de produtos necessários. Equipa muito prestável. Obrigada"},
+        {"@type":"Review","author":{"@type":"Person","name":"Carlos Rodrigues"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Uma excelência de todo o material para piscinas na nossa região. Bem hajam"}
+      ]
+    },
+    {
+      "@type":["LocalBusiness","Store"],
+      "@id":"https://raulcorreia.pt/#loja",
+      "name":"Raul Correia – Representações, Lda (Loja Coimbra)",
+      "parentOrganization":{"@id":"https://raulcorreia.pt/#org"},
+      "url":"https://raulcorreia.pt/",
+      "telephone":"+351239722051",
+      "email":"loja@raulcorreia.pt",
+      "priceRange":"€€",
+      "address":{"@type":"PostalAddress","streetAddress":"Estrada da Beira, nº 40","addressLocality":"Coimbra","postalCode":"3030-173","addressRegion":"Coimbra","addressCountry":"PT"},
+      "geo":{"@type":"GeoCoordinates","latitude":40.198568,"longitude":-8.402797},
+      "hasMap":"https://maps.google.com/?cid=402620570635373830",
+      "areaServed":["Coimbra","Condeixa-a-Nova","Cantanhede","Mealhada","Miranda do Corvo","Região Centro"],
+      "openingHoursSpecification":[
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:30","closes":"13:00"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:30"},
+        {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"13:00"}
+      ],
+      "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.5","reviewCount":"70","bestRating":"5"},
+      "review":[
+        {"@type":"Review","author":{"@type":"Person","name":"Nuno Barreto"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Uma loja onde os funcionários sabem do que estão a falar e esclarecem as dúvidas dos clientes com prazer."}
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Onde fica a Raul Correia – Representações?","acceptedAnswer":{"@type":"Answer","text":"A sede fica em Catraia dos Poços, EN17, nº 440, 3300-353 S. Martinho da Cortiça, no concelho de Arganil. A loja fica na Estrada da Beira, nº 40, 3030-173 Coimbra."}},
+    {"@type":"Question","name":"Qual é o horário da Raul Correia em Arganil e em Coimbra?","acceptedAnswer":{"@type":"Answer","text":"A sede em Arganil está aberta de segunda a sexta, das 8:00 às 13:00 e das 14:00 às 19:00. A loja de Coimbra abre de segunda a sexta, das 8:30 às 13:00 e das 14:00 às 18:30, e ao sábado das 9:00 às 13:00."}},
+    {"@type":"Question","name":"Fazem entregas em obra?","acceptedAnswer":{"@type":"Answer","text":"Sim. A Raul Correia entrega a mercadoria diretamente em obra ou na morada do cliente, sem encargos de transporte. Basta indicar a morada e a data pretendida ao fazer a encomenda."}},
+    {"@type":"Question","name":"O orçamento tem custos?","acceptedAnswer":{"@type":"Answer","text":"Não. A orçamentação é gratuita. Pode pedir orçamento pelo formulário do site, por email para geral@raulcorreia.pt ou pelo telefone 239 458 001."}},
+    {"@type":"Question","name":"Trabalham apenas com profissionais?","acceptedAnswer":{"@type":"Answer","text":"A nossa oferta destina-se essencialmente a profissionais do setor: instaladores, armazenistas e revendedores. Se não é profissional e procura um produto específico, contacte a loja de Coimbra ou a sede e diga-nos do que precisa."}},
+    {"@type":"Question","name":"Que marcas representa a Raul Correia?","acceptedAnswer":{"@type":"Answer","text":"Somos distribuidores oficiais de 40 marcas, entre elas Grundfos, DAB, AstralPool, CTX Professional, Rain Bird, Reflex, Uponor, Caleffi, Ariston, Domusa, Henkel e Rothenberger."}},
+    {"@type":"Question","name":"Onde comprar material para piscinas em Coimbra?","acceptedAnswer":{"@type":"Answer","text":"Na loja Raul Correia, na Estrada da Beira, nº 40, em Coimbra. Trabalhamos equipamentos de piscina AstralPool e Fapicentro e produtos de tratamento CTX Professional e Imporquímica, para piscinas públicas e privadas."}},
+    {"@type":"Question","name":"Podem ajudar a preparar o meu projeto?","acceptedAnswer":{"@type":"Answer","text":"Sim. O Serviço de Apoio a Clientes da Raul Correia faz o estudo prévio do projeto, prepara o orçamento sem custos e acompanha a execução da obra."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Service",
+  "serviceType":"Distribuição de material de canalização, piscinas, rega e climatização",
+  "provider":{"@id":"https://raulcorreia.pt/#org"},
+  "areaServed":{"@type":"AdministrativeArea","name":"Região Centro, Portugal"},
+  "hasOfferCatalog":{"@type":"OfferCatalog","name":"Gamas de produto","itemListElement":[
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Tubos, acessórios e válvulas"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Equipamentos de piscina"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Tratamento de piscinas"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Eletrobombas domésticas e profissionais"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Acumuladores e vasos de expansão"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Rega automática"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Energias renováveis"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Caldeiras e aquecimento central"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Tratamento de águas e ventilação"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ferramentas, colas e vedantes"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Estudo prévio de projeto, orçamentação grátis e entrega em obra"}}
+  ]}
+}
+</script>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+<p class="proposal">Proposta de novo website preparada por <a href="https://franco.solutions" target="_blank" rel="noopener">franco.solutions</a> — pré-visualização, não é o site oficial. Site atual: <a href="https://raulcorreia.pt/" target="_blank" rel="noopener">raulcorreia.pt</a></p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="1"/><path d="m22 6-10 7L2 6"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.7-4.6A9 9 0 1 1 8 19.6L3 21z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.4-2-1-1 .9c-1-.4-1.8-1.2-2.2-2.2l.9-1-1-2L9 9.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 2 3 6.6 7.1.7-5.4 4.8 1.6 7L12 17.5l-6.3 3.6 1.6-7L1.9 9.3 9 8.6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-logo" viewBox="0 0 100 100"><circle cx="50" cy="55" r="36" fill="none" stroke="#d22b21" stroke-width="7"/><path d="M4 30c16-2 30 9 41 30C57 34 76 13 99 3 79 24 64 52 56 98 46 66 28 42 4 30z" fill="#1b1846"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap mono">
+    <div class="topbar-l">
+      <span class="status" data-loc="sede"><i class="dot"></i><span>Sede Arganil · <b class="st">—</b></span></span>
+      <span class="status" data-loc="loja"><i class="dot"></i><span>Loja Coimbra · <b class="st">—</b></span></span>
+    </div>
+    <div class="topbar-r">
+      <a href="mailto:geral@raulcorreia.pt">geral@raulcorreia.pt</a>
+      <a href="https://wa.me/351966823729" target="_blank" rel="noopener">WhatsApp</a><!-- VERIFY: WhatsApp number -->
+    </div>
+  </div>
+</div>
+
+<header class="header" id="header">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="Raul Correia – Representações, Lda — início">
+      <svg aria-hidden="true"><use href="#i-logo"/></svg>
+      <span><b>Raul Correia</b><small>Representações, Lda</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#gamas"><span>01</span>Gamas</a></li>
+        <li><a href="#servico"><span>02</span>Serviço</a></li>
+        <li><a href="#marcas"><span>03</span>Marcas</a></li>
+        <li><a href="#empresa"><span>04</span>Empresa</a></li>
+        <li><a href="#contactos"><span>05</span>Contactos</a></li>
+      </ul>
+      <a class="btn btn-red" href="#orcamento">Pedir orçamento</a>
+    </nav>
+    <button class="burger" id="burger" aria-controls="nav" aria-expanded="false" aria-label="Abrir menu"><i></i></button>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Progresso da página"><div class="rail-fill"></div></nav>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow mono"><span>Distribuidor oficial</span><span>Desde 1990</span><span>Arganil · Coimbra</span></p>
+        <h1>Tudo o que faz a água <em>correr.</em></h1>
+        <p class="hero-lead"><strong>Material de canalização, eletrobombas, piscinas, rega automática e climatização</strong> para instaladores, armazenistas e revendedores — com sede em Arganil, loja em Coimbra e entrega em obra sem encargos de transporte.</p>
+        <div class="hero-cta">
+          <a class="btn btn-red" href="#orcamento">Pedir orçamento grátis <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+          <a class="btn call" href="tel:+351239458001"><svg aria-hidden="true"><use href="#i-phone"/></svg><span>239 458 001<small class="legal-note">Chamada para a rede fixa nacional</small></span></a>
+        </div>
+        <div class="ratings">
+          <a href="https://maps.google.com/?cid=4859966514740465351" target="_blank" rel="noopener"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><span><b>4,4</b> · 45 opiniões Google — Sede</span></a>
+          <a href="https://maps.google.com/?cid=402620570635373830" target="_blank" rel="noopener"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><span><b>4,5</b> · 70 opiniões Google — Loja</span></a>
+        </div>
+      </div>
+      <div class="hero-fig">
+        <figure class="window">
+          <img src="images/sede.webp" width="940" height="350" alt="Edifício da sede da Raul Correia em Catraia dos Poços: fachada em painel de alumínio com janelas vermelhas" loading="eager" fetchpriority="high" decoding="async">
+          <figcaption class="mono"><span>Sede · Catraia dos Poços, EN17 nº 440</span><span>40.2782° N — 8.1289° W</span></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="specs">
+      <div class="spec"><b>1990</b><span>Ano de fundação, em Catraia dos Poços</span></div>
+      <div class="spec"><b>40</b><span>Marcas certificadas com distribuição oficial</span></div>
+      <div class="spec"><b>2</b><span>Moradas: sede em Arganil e loja em Coimbra</span></div>
+      <div class="spec"><b>0<sup>€</sup></b><span>Encargos de transporte na entrega em obra</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMAS -->
+<section class="sec" id="gamas">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label mono">01 — Gamas de produto</p>
+      <h2 class="rv">Dez gamas.<br>Um só fornecedor.</h2>
+      <p class="sec-intro rv">Da tubagem à caldeira, da eletrobomba ao cloro da piscina: trabalhamos as marcas que oferecem maiores garantias de qualidade, para que a obra não pare à espera de material.</p>
+    </div>
+
+    <ol class="index">
+      <li class="row rv" data-img="">
+        <span class="n">01</span>
+        <div class="txt"><h3>Tubos, acessórios e válvulas</h3><p>Condução de fluidos: tubagem metálica e plástica, acessórios hidrosanitários, válvulas e abraçadeiras.</p></div>
+        <span class="brands-line">Uponor · Fersil · Heliroma · Caleffi · Genebre · FIV · +5</span>
+        <button class="see" type="button" data-filter="tubos">Ver 11 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/piscinas-equipamento.webp">
+        <span class="n">02</span>
+        <div class="txt"><h3>Equipamentos de piscina</h3><p>Filtração, bombagem e acessórios para piscinas públicas e privadas.</p></div>
+        <span class="brands-line">AstralPool · Fapicentro</span>
+        <button class="see" type="button" data-filter="piscinas">Ver 2 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/piscinas-tratamento.webp">
+        <span class="n">03</span>
+        <div class="txt"><h3>Tratamento de piscinas</h3><p>Produtos químicos, controlo e tratamento da água, manutenção de época.</p></div>
+        <span class="brands-line">CTX Professional · Imporquímica</span>
+        <button class="see" type="button" data-filter="tratamento">Ver 2 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/eletrobombas.webp">
+        <span class="n">04</span>
+        <div class="txt"><h3>Eletrobombas</h3><p>Domésticas e profissionais: pressurização, poços, circulação e drenagem.</p></div>
+        <span class="brands-line">Grundfos · DAB · Termar</span>
+        <button class="see" type="button" data-filter="bombas">Ver 3 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/acumuladores.webp">
+        <span class="n">05</span>
+        <div class="txt"><h3>Acumuladores e vasos de expansão</h3><p>Armazenamento de águas quentes sanitárias e controlo de pressão.</p></div>
+        <span class="brands-line">Reflex · Mecalia · ACV · Ariston</span>
+        <button class="see" type="button" data-filter="acumuladores">Ver 4 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/rega.webp">
+        <span class="n">06</span>
+        <div class="txt"><h3>Rega automática</h3><p>Jardins, micro-rega e agricultura: aspersores, programadores e acessórios.</p></div>
+        <span class="brands-line">Rain Bird · Prilux</span>
+        <button class="see" type="button" data-filter="rega">Ver 2 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/renovaveis.webp">
+        <span class="n">07</span>
+        <div class="txt"><h3>Energias renováveis</h3><p>Energia solar térmica e fotovoltaica.</p></div>
+        <span class="brands-line">Termicol</span>
+        <button class="see" type="button" data-filter="solar">Ver 1 marca <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/caldeiras.webp">
+        <span class="n">08</span>
+        <div class="txt"><h3>Caldeiras e aquecimento central</h3><p>Biomassa, lenha, gasóleo e gás. Queimadores e pellets.</p></div>
+        <span class="brands-line">Domusa · ACV · Ariston · Hansa · Inmecal · +3</span>
+        <button class="see" type="button" data-filter="caldeiras">Ver 8 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="">
+        <span class="n">09</span>
+        <div class="txt"><h3>Tratamento de águas e ventilação</h3><p>Filtração e tratamento de água, depuração, produtos compósitos e ventilação.</p></div>
+        <span class="brands-line">Ecodepur · Hidrion · PWG · Eurospiro · Ecocompósitos</span>
+        <button class="see" type="button" data-filter="aguas">Ver 5 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+      <li class="row rv" data-img="images/ferramentas.webp">
+        <span class="n">10</span>
+        <div class="txt"><h3>Ferramentas, colas e vedantes</h3><p>Ferramentas específicas para profissionais, soldadura, silicones e poliuretanos.</p></div>
+        <span class="brands-line">Rothenberger · Super-Ego · Henkel · Castolin</span>
+        <button class="see" type="button" data-filter="ferramentas">Ver 4 marcas <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </li>
+    </ol>
+  </div>
+  <div class="peek" aria-hidden="true"><img alt="" width="640" height="238"></div>
+</section>
+
+<!-- SERVIÇO -->
+<section class="sec dark" id="servico">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label mono">02 — Serviço de Apoio a Clientes</p>
+      <h2 class="rv">Do projeto à obra, sem pontas soltas.</h2>
+      <p class="sec-intro rv">Não vendemos só a caixa. Estudamos o projeto consigo, orçamentamos sem custos e levamos o material até onde ele vai ser instalado.</p>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="step">
+        <span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M5 21V5h10l4 4v12M9 9h4M9 13h6M9 17h6"/></svg></span>
+        <span class="mono">Passo 01</span>
+        <h3>Estudo prévio</h3>
+        <p>Analisamos o seu projeto antes de fechar a lista de material.</p>
+      </li>
+      <li class="step">
+        <span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 3h16v18l-3-2-3 2-2-2-2 2-3-2-3 2z"/><path d="M8 8h8M8 12h8M8 16h4"/></svg></span>
+        <span class="mono">Passo 02</span>
+        <h3>Orçamentação grátis</h3>
+        <p>Recebe um orçamento para a obra, sem qualquer custo.</p>
+      </li>
+      <li class="step">
+        <span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 6h13v10H1zM14 10h4l4 4v2h-8z"/><circle cx="5.5" cy="18" r="2"/><circle cx="17.5" cy="18" r="2"/></svg></span>
+        <span class="mono">Passo 03</span>
+        <h3>Entrega em obra</h3>
+        <p>Diretamente em obra ou na sua morada — sem encargos de transporte.</p>
+      </li>
+      <li class="step">
+        <span class="node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span class="mono">Passo 04</span>
+        <h3>Acompanhamento</h3>
+        <p>Continuamos consigo durante a execução do projeto.</p>
+      </li>
+    </ol>
+    <div class="who rv">
+      <span class="mono">Para quem trabalhamos</span>
+      <strong>Instaladores</strong><strong>Armazenistas</strong><strong>Revendedores</strong>
+    </div>
+  </div>
+</section>
+
+<!-- MARCAS -->
+<section class="sec alu" id="marcas">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label mono">03 — Representações</p>
+      <h2 class="rv">40 marcas certificadas. Distribuição oficial.</h2>
+      <p class="sec-intro rv">Filtre por gama ou procure pelo nome. Cada marca abre o respetivo website num novo separador.</p>
+    </div>
+
+    <div class="filters">
+      <div class="search">
+        <label class="sr" for="brand-q">Procurar marca</label>
+        <svg aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="brand-q" type="search" placeholder="Procurar marca…" autocomplete="off">
+      </div>
+      <div class="chips" role="group" aria-label="Filtrar por gama">
+        <button class="chip" type="button" data-g="all" aria-pressed="true">Todas</button>
+        <button class="chip" type="button" data-g="tubos" aria-pressed="false">Tubos e válvulas</button>
+        <button class="chip" type="button" data-g="piscinas" aria-pressed="false">Piscinas</button>
+        <button class="chip" type="button" data-g="tratamento" aria-pressed="false">Tratamento de piscinas</button>
+        <button class="chip" type="button" data-g="bombas" aria-pressed="false">Eletrobombas</button>
+        <button class="chip" type="button" data-g="acumuladores" aria-pressed="false">Acumuladores</button>
+        <button class="chip" type="button" data-g="rega" aria-pressed="false">Rega</button>
+        <button class="chip" type="button" data-g="solar" aria-pressed="false">Renováveis</button>
+        <button class="chip" type="button" data-g="caldeiras" aria-pressed="false">Caldeiras</button>
+        <button class="chip" type="button" data-g="aguas" aria-pressed="false">Águas e ventilação</button>
+        <button class="chip" type="button" data-g="ferramentas" aria-pressed="false">Ferramentas e colas</button>
+      </div>
+      <p class="count mono" id="brand-count" aria-live="polite">40 marcas</p>
+    </div>
+
+    <div class="brands" id="brands">
+      <a class="brand" data-g="acumuladores caldeiras" href="https://www.acv.com/" target="_blank" rel="noopener"><b>ACV</b><span class="mono">Caldeiras e acumuladores</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="acumuladores caldeiras" href="https://www.ariston.com/pt-pt/" target="_blank" rel="noopener"><b>Ariston</b><span class="mono">Caldeiras e acumuladores</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="piscinas" href="https://www.astralpool.com/en/stores/fluidra-portugal/" target="_blank" rel="noopener"><b>AstralPool</b><span class="mono">Equipamentos de piscinas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://www.caleffi.com/pt-pt" target="_blank" rel="noopener"><b>Caleffi</b><span class="mono">Equipamentos hidrosanitários</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="ferramentas" href="https://www.castolin.com/pt-PT" target="_blank" rel="noopener"><b>Castolin</b><span class="mono">Soldadura e revestimento</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tratamento" href="https://www.ctxprofessional.com/" target="_blank" rel="noopener"><b>CTX Professional</b><span class="mono">Tratamento e manutenção de piscinas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="bombas" href="https://www.dabpumps.com/" target="_blank" rel="noopener"><b>DAB</b><span class="mono">Eletrobombas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://www.domusateknik.com/es/" target="_blank" rel="noopener"><b>Domusa</b><span class="mono">Aquecimento central</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="aguas" href="https://www.ecocompositos.pt/" target="_blank" rel="noopener"><b>Ecocompósitos</b><span class="mono">Produtos compósitos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="aguas" href="https://ecodepur.pt/" target="_blank" rel="noopener"><b>Ecodepur</b><span class="mono">Tratamento de águas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="aguas" href="https://www.eurospiro.pt/" target="_blank" rel="noopener"><b>Eurospiro</b><span class="mono">Ventilação</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="piscinas" href="https://fapicentro.pt/" target="_blank" rel="noopener"><b>Fapicentro</b><span class="mono">Piscinas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://fersil.com/" target="_blank" rel="noopener"><b>Fersil</b><span class="mono">Tubos e acessórios</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://fiv.it/it/" target="_blank" rel="noopener"><b>FIV</b><span class="mono">Válvulas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://www.genebre.es/" target="_blank" rel="noopener"><b>Genebre</b><span class="mono">Acessórios hidrosanitários</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://www.generalfittings.it/" target="_blank" rel="noopener"><b>General Fittings</b><span class="mono">Acessórios hidrosanitários</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="bombas" href="https://www.grundfos.com/pt" target="_blank" rel="noopener"><b>Grundfos</b><span class="mono">Eletrobombas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://www.hansa-heiztechnik.de/en/" target="_blank" rel="noopener"><b>Hansa</b><span class="mono">Caldeiras e queimadores</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://heliroma.pt/" target="_blank" rel="noopener"><b>Heliroma</b><span class="mono">Tubos e acessórios</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="ferramentas" href="https://www.henkel.pt/" target="_blank" rel="noopener"><b>Henkel</b><span class="mono">Colas e vedantes</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="aguas" href="https://hidrion.pt/" target="_blank" rel="noopener"><b>Hidrion</b><span class="mono">Tratamento de águas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://ibotec.com/" target="_blank" rel="noopener"><b>Ibotec</b><span class="mono">Tubos plásticos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tratamento" href="https://imporquimica.pt/" target="_blank" rel="noopener"><b>Imporquímica</b><span class="mono">Produtos químicos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://calderas-biomasa.es/" target="_blank" rel="noopener"><b>Inmecal</b><span class="mono">Caldeiras de biomassa</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://www.jimten.com/" target="_blank" rel="noopener"><b>Jimten</b><span class="mono">Acessórios de canalização</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="http://www.lifial.pt/" target="_blank" rel="noopener"><b>Lifial</b><span class="mono">Abraçadeiras metálicas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="acumuladores" href="http://www.mecalia.com/pt/inicio/" target="_blank" rel="noopener"><b>Mecalia</b><span class="mono">Acumuladores</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://pellasx.pl/" target="_blank" rel="noopener"><b>Pellas X</b><span class="mono">Queimadores de pellets</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://www.nmp-lego.se/" target="_blank" rel="noopener"><b>PellX</b><span class="mono">Queimadores de pellets</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="caldeiras" href="https://pinewells.com/pt/home" target="_blank" rel="noopener"><b>Pinewells</b><span class="mono">Pellets</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="tubos" href="https://potermic.com/" target="_blank" rel="noopener"><b>Potermic</b><span class="mono">Equipamentos hidrosanitários</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="rega" href="https://www.prilux.pt/pt" target="_blank" rel="noopener"><b>Prilux</b><span class="mono">Material de rega</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="aguas" href="https://www.pwgportugal.com/" target="_blank" rel="noopener"><b>PWG</b><span class="mono">Tratamento de águas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="rega" href="https://www.rainbird.com/pt-pt/eur" target="_blank" rel="noopener"><b>Rain Bird</b><span class="mono">Material de rega</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="acumuladores" href="https://reflex-winkelmann.com/pt" target="_blank" rel="noopener"><b>Reflex</b><span class="mono">Acumuladores e vasos de expansão</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="ferramentas" href="https://rothenberger.com/pt-pt" target="_blank" rel="noopener"><b>Rothenberger</b><span class="mono">Ferramentas para tubos</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="ferramentas" href="https://www.super-ego.es/pt/" target="_blank" rel="noopener"><b>Super-Ego</b><span class="mono">Ferramentas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="bombas" href="http://www.termar.it/" target="_blank" rel="noopener"><b>Termar</b><span class="mono">Eletrobombas</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="brand" data-g="solar" href="https://termicol.es/" target="_blank" rel="noopener"><b>Termicol</b><span class="mono">Energia solar</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a><!-- VERIFY: Termicol URL did not respond in testing -->
+      <a class="brand" data-g="tubos" href="https://www.uponor.com/pt-pt" target="_blank" rel="noopener"><b>Uponor</b><span class="mono">Tubos e acessórios</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <p class="empty" id="brand-empty" hidden>Nenhuma marca encontrada. Não encontra o que procura? <a href="#orcamento">Pergunte-nos</a> — trabalhamos muitos outros produtos.</p>
+  </div>
+</section>
+
+<!-- EMPRESA + OPINIÕES -->
+<section class="sec" id="empresa">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label mono">04 — A empresa</p>
+      <h2 class="rv">36 anos a abastecer quem instala.</h2>
+    </div>
+    <div class="about">
+      <div class="about-text rv">
+        <p>Fundada em 1990 e sediada em Catraia dos Poços, no concelho de Arganil, a Raul Correia dedica-se ao comércio de artigos de condução de fluidos, climatização, rega automática de jardins, eletrobombas e equipamentos e produtos de manutenção de piscinas.</p>
+        <p>Como distribuidores oficiais de marcas certificadas, colocamos no mercado aquelas que nos oferecem maiores garantias de qualidade — a pensar sobretudo nos profissionais do setor. Através do Serviço de Apoio a Clientes fazemos o estudo prévio dos projetos, a orçamentação e o acompanhamento da sua execução.</p>
+      </div>
+      <dl class="facts rv">
+        <div><dt>Fundação</dt><dd>1990</dd></div>
+        <div><dt>Sede</dt><dd>Catraia dos Poços, Arganil</dd></div>
+        <div><dt>Loja</dt><dd>Estrada da Beira, Coimbra</dd></div>
+        <div><dt>Clientes</dt><dd>Instaladores, armazenistas e revendedores</dd></div>
+        <div><dt>NIF</dt><dd>502 460 440</dd></div>
+        <div><dt>Registo EEE</dt><dd>Produtor nº PT 002318</dd></div>
+      </dl>
+    </div>
+
+    <div class="reviews">
+      <div class="reviews-head">
+        <h3 class="rv">O que dizem os clientes</h3>
+        <p class="mono" style="color:var(--ink-soft)">Google · Sede 4,4 (45) · Loja 4,5 (70)</p>
+      </div>
+      <div class="quotes">
+        <figure class="quote rv">
+          <blockquote><p>“Gostei muito da visita. Comprámos a piscina e não fazíamos ideia do mínimo de produtos necessários. Equipa muito prestável. Obrigada”</p></blockquote>
+          <figcaption><b>Mariana Ribeiro</b><span class="stars" aria-label="5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span>Sede, Arganil</span></figcaption>
+        </figure>
+        <figure class="quote rv">
+          <blockquote><p>“Uma loja onde os funcionários sabem do que estão a falar e esclarecem as dúvidas dos clientes com prazer.”</p></blockquote>
+          <figcaption><b>Nuno Barreto</b><span class="stars" aria-label="5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span>Loja, Coimbra</span></figcaption>
+        </figure>
+        <figure class="quote rv">
+          <blockquote><p>“Uma excelência de todo o material para piscinas na nossa região. Bem hajam”</p></blockquote>
+          <figcaption><b>Carlos Rodrigues</b><span class="stars" aria-label="5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span>Sede, Arganil</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec alu" id="faq">
+  <div class="wrap faq-grid">
+    <div class="sec-head">
+      <p class="label mono">Perguntas frequentes</p>
+      <h2 class="rv">Antes de ligar.</h2>
+      <p class="sec-intro rv">Não encontra a resposta? Ligue <a href="tel:+351239458001">239 458 001</a> <span class="legal-note" style="display:inline">(chamada para a rede fixa nacional)</span> ou escreva para <a href="mailto:geral@raulcorreia.pt">geral@raulcorreia.pt</a>.</p>
+    </div>
+    <div class="faq">
+      <details><summary>Onde fica a Raul Correia – Representações?<i></i></summary><div class="ans"><p>A sede fica em Catraia dos Poços, EN17, nº 440, 3300-353 S. Martinho da Cortiça, no concelho de Arganil. A loja fica na Estrada da Beira, nº 40, 3030-173 Coimbra. <a href="#contactos">Ver direções</a>.</p></div></details>
+      <details><summary>Qual é o horário em Arganil e em Coimbra?<i></i></summary><div class="ans"><p>A sede em Arganil está aberta de segunda a sexta, das 8:00 às 13:00 e das 14:00 às 19:00. A loja de Coimbra abre de segunda a sexta, das 8:30 às 13:00 e das 14:00 às 18:30, e ao sábado das 9:00 às 13:00. Em feriados, confirme por telefone.</p></div></details>
+      <details><summary>Fazem entregas em obra?<i></i></summary><div class="ans"><p>Sim. Entregamos a mercadoria diretamente em obra ou na morada do cliente, sem encargos de transporte. Basta indicar a morada e a data pretendida ao fazer a encomenda.</p></div></details>
+      <details><summary>O orçamento tem custos?<i></i></summary><div class="ans"><p>Não. A orçamentação é gratuita. Pode pedir orçamento <a href="#orcamento">pelo formulário</a>, por email para geral@raulcorreia.pt ou pelo telefone 239 458 001.</p></div></details>
+      <details><summary>Trabalham apenas com profissionais?<i></i></summary><div class="ans"><p>A nossa oferta destina-se essencialmente a profissionais do setor: instaladores, armazenistas e revendedores. Se não é profissional e procura um produto específico, contacte a loja de Coimbra ou a sede e diga-nos do que precisa.</p></div></details>
+      <details><summary>Que marcas representam?<i></i></summary><div class="ans"><p>Somos distribuidores oficiais de 40 marcas, entre elas Grundfos, DAB, AstralPool, CTX Professional, Rain Bird, Reflex, Uponor, Caleffi, Ariston, Domusa, Henkel e Rothenberger. <a href="#marcas">Ver a lista completa por gama</a>.</p></div></details>
+      <details><summary>Onde comprar material para piscinas em Coimbra?<i></i></summary><div class="ans"><p>Na loja Raul Correia, na Estrada da Beira, nº 40, em Coimbra. Trabalhamos equipamentos de piscina AstralPool e Fapicentro e produtos de tratamento CTX Professional e Imporquímica, para piscinas públicas e privadas.</p></div></details>
+      <details><summary>Podem ajudar a preparar o meu projeto?<i></i></summary><div class="ans"><p>Sim. O nosso Serviço de Apoio a Clientes faz o estudo prévio do projeto, prepara o orçamento sem custos e acompanha a execução da obra.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTOS -->
+<section class="sec" id="contactos">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label mono">05 — Contactos</p>
+      <h2 class="rv">Venha ter connosco. Ou nós vamos à obra.</h2>
+      <p class="sec-intro rv">Duas moradas na Região Centro. O estado “aberto / fechado” é calculado em tempo real, pela hora de Lisboa.</p>
+    </div>
+
+    <div class="plates">
+      <article class="plate rv" data-loc="sede">
+        <div class="plate-top">
+          <h3><small>Sede · Armazém</small>Arganil</h3>
+          <span class="status" data-loc="sede"><i class="dot"></i><b class="st">—</b></span>
+        </div>
+        <dl>
+          <div><dt>Morada</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Catraia+dos+Po%C3%A7os%2C+EN17+440%2C+3300-353+S.+Martinho+da+Corti%C3%A7a" target="_blank" rel="noopener">Catraia dos Poços, EN17, nº 440<br>3300-353 S. Martinho da Cortiça, Arganil</a></dd></div>
+          <div><dt>GPS</dt><dd class="mono" style="text-transform:none">40.278206, -8.128910</dd></div>
+          <div><dt>Telefone</dt><dd><a class="big" href="tel:+351239458001">239 458 001</a><span class="legal-note">Chamada para a rede fixa nacional</span></dd></div>
+          <div><dt>Telemóvel</dt><dd><a class="big" href="tel:+351966823729">966 823 729</a><span class="legal-note">Chamada para a rede móvel nacional</span></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:geral@raulcorreia.pt">geral@raulcorreia.pt</a></dd></div>
+          <div><dt>Horário</dt><dd>
+            <!-- VERIFY: lunch break from Google; old site shows continuous 8:00–19:00 -->
+            <table class="hours">
+              <tr data-days="1-5"><td>Seg – Sex</td><td>8:00 – 13:00<br>14:00 – 19:00</td></tr>
+              <tr data-days="6-0"><td>Sáb – Dom</td><td>Fechado</td></tr>
+            </table>
+          </dd></div>
+        </dl>
+        <div class="plate-actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=40.278206,-8.128910" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Google Maps</a>
+          <a class="btn" href="https://waze.com/ul?ll=40.278206,-8.128910&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+          <a class="btn btn-red" href="tel:+351239458001"><svg aria-hidden="true"><use href="#i-phone"/></svg>Ligar</a>
+        </div>
+      </article>
+
+      <article class="plate rv" data-loc="loja">
+        <div class="plate-top">
+          <h3><small>Loja · Balcão</small>Coimbra</h3>
+          <span class="status" data-loc="loja"><i class="dot"></i><b class="st">—</b></span>
+        </div>
+        <dl>
+          <div><dt>Morada</dt><dd><a href="https://www.google.com/maps/search/?api=1&amp;query=Estrada+da+Beira+40%2C+3030-173+Coimbra" target="_blank" rel="noopener">Estrada da Beira, nº 40<br>3030-173 Coimbra</a></dd></div>
+          <div><dt>GPS</dt><dd class="mono" style="text-transform:none">40.198568, -8.402797</dd></div>
+          <div><dt>Telefone</dt><dd><a class="big" href="tel:+351239722051">239 722 051</a><span class="legal-note">Chamada para a rede fixa nacional</span></dd></div>
+          <div><dt>Telemóvel</dt><dd><a class="big" href="tel:+351963685187">963 685 187</a><span class="legal-note">Chamada para a rede móvel nacional</span></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:loja@raulcorreia.pt">loja@raulcorreia.pt</a></dd></div>
+          <div><dt>Horário</dt><dd>
+            <!-- VERIFY: Saturday 9:00–13:00 (one Google review says the shop was closed on a Saturday) -->
+            <table class="hours">
+              <tr data-days="1-5"><td>Seg – Sex</td><td>8:30 – 13:00<br>14:00 – 18:30</td></tr>
+              <tr data-days="6"><td>Sábado</td><td>9:00 – 13:00</td></tr>
+              <tr data-days="0"><td>Domingo</td><td>Fechado</td></tr>
+            </table>
+          </dd></div>
+        </dl>
+        <div class="plate-actions">
+          <a class="btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=40.198568,-8.402797" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Google Maps</a>
+          <a class="btn" href="https://waze.com/ul?ll=40.198568,-8.402797&amp;navigate=yes" target="_blank" rel="noopener">Waze</a>
+          <a class="btn btn-red" href="tel:+351239722051"><svg aria-hidden="true"><use href="#i-phone"/></svg>Ligar</a>
+        </div>
+      </article>
+    </div>
+    <p class="holiday">Em feriados, confirme o horário por telefone.</p>
+
+    <div class="quote-form" id="orcamento">
+      <div class="intro">
+        <span class="mono">Orçamentação grátis</span>
+        <h3>Pedir orçamento</h3>
+        <p>Diga-nos o que precisa. O pedido é preparado no seu programa de email e enviado para a morada que escolher — responde-lhe quem conhece o material.</p>
+      </div>
+      <form id="qform" novalidate>
+        <div class="f2">
+          <div class="field"><label for="f-nome">Nome *</label><input id="f-nome" name="nome" autocomplete="name" required></div>
+          <div class="field"><label for="f-empresa">Empresa</label><input id="f-empresa" name="empresa" autocomplete="organization"></div>
+        </div>
+        <div class="f2">
+          <div class="field"><label for="f-tel">Telefone</label><input id="f-tel" name="telefone" type="tel" autocomplete="tel" inputmode="tel"></div>
+          <div class="field"><label for="f-email">Email *</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field">
+          <label for="f-gama">Gama</label>
+          <select id="f-gama" name="gama">
+            <option value="">Várias / não sei</option>
+            <option data-g="tubos">Tubos, acessórios e válvulas</option>
+            <option data-g="piscinas">Equipamentos de piscina</option>
+            <option data-g="tratamento">Tratamento de piscinas</option>
+            <option data-g="bombas">Eletrobombas</option>
+            <option data-g="acumuladores">Acumuladores e vasos de expansão</option>
+            <option data-g="rega">Rega automática</option>
+            <option data-g="solar">Energias renováveis</option>
+            <option data-g="caldeiras">Caldeiras e aquecimento central</option>
+            <option data-g="aguas">Tratamento de águas e ventilação</option>
+            <option data-g="ferramentas">Ferramentas, colas e vedantes</option>
+          </select>
+        </div>
+        <fieldset class="field">
+          <legend>Enviar para</legend>
+          <div class="dest">
+            <label><input type="radio" name="dest" value="geral@raulcorreia.pt" checked><span>Sede · Arganil<br><small>geral@raulcorreia.pt</small></span></label>
+            <label><input type="radio" name="dest" value="loja@raulcorreia.pt"><span>Loja · Coimbra<br><small>loja@raulcorreia.pt</small></span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="f-msg">Mensagem *</label><textarea id="f-msg" name="mensagem" required placeholder="Material, quantidades, local da obra, prazo…"></textarea></div>
+        <div class="form-foot">
+          <p>Os seus dados servem apenas para responder ao pedido. <button type="button" class="linkish" data-dialog="dlg-termos">Política de privacidade</button>.</p>
+          <button class="btn btn-red" type="submit">Preparar pedido <svg aria-hidden="true"><use href="#i-mail"/></svg></button>
+        </div>
+        <div class="form-msg" id="form-msg" role="status" hidden></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="#inicio" style="color:#fff"><svg aria-hidden="true" style="background:#fff;border-radius:50%;padding:3px"><use href="#i-logo"/></svg><span><b>Raul Correia</b><small style="color:#aeb1c2">Representações, Lda</small></span></a>
+        <p style="margin-top:1rem;max-width:22rem">Distribuidor oficial de material de condução de fluidos, climatização, rega, eletrobombas e piscinas desde 1990.</p>
+        <p style="margin-top:.75rem">NIF 502460440<br>Registo de Produtor EEE nº PT 002318</p>
+      </div>
+      <div>
+        <h4>Sede · Arganil</h4>
+        <p>Catraia dos Poços, EN17, nº 440<br>3300-353 S. Martinho da Cortiça</p>
+        <a href="tel:+351239458001">239 458 001</a><span class="legal-note">Chamada para a rede fixa nacional</span>
+        <br><a href="mailto:geral@raulcorreia.pt">geral@raulcorreia.pt</a>
+      </div>
+      <div>
+        <h4>Loja · Coimbra</h4>
+        <p>Estrada da Beira, nº 40<br>3030-173 Coimbra</p>
+        <a href="tel:+351239722051">239 722 051</a><span class="legal-note">Chamada para a rede fixa nacional</span>
+        <br><a href="mailto:loja@raulcorreia.pt">loja@raulcorreia.pt</a>
+      </div>
+      <div>
+        <h4>Informação legal</h4>
+        <ul>
+          <li><button type="button" data-dialog="dlg-termos">Termos, condições e privacidade</button></li>
+          <li><button type="button" data-dialog="dlg-ral">Resolução alternativa de litígios</button></li>
+          <li><a href="https://www.livroreclamacoes.pt/inicio" target="_blank" rel="noopener">Livro de Reclamações online ↗</a></li>
+        </ul>
+        <img class="cofin" src="images/centro2020.png" width="160" height="18" alt="Cofinanciado por Centro 2020, Portugal 2020 e União Europeia" loading="lazy" decoding="async">
+      </div>
+    </div>
+    <div class="wm"><div class="wordmark" aria-hidden="true">Raul Correia</div></div>
+  </div>
+  <div class="foot-bottom">
+    <div class="wrap">
+      <span>© 2026 Raul Correia – Representações, Lda. Todos os direitos reservados.</span>
+      <span>Última atualização: 13/09/2026 · Website por <a href="https://franco.solutions" target="_blank" rel="noopener">franco.solutions</a></span>
+    </div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Ações rápidas">
+  <a href="tel:+351239458001"><svg aria-hidden="true"><use href="#i-phone"/></svg>Ligar</a>
+  <a href="https://wa.me/351966823729" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+  <a href="#orcamento"><svg aria-hidden="true"><use href="#i-mail"/></svg>Orçamento grátis</a>
+</nav>
+
+<dialog id="dlg-termos" aria-labelledby="dlg-termos-t">
+  <div class="dlg-head"><h2 id="dlg-termos-t">Termos &amp; Condições</h2><form method="dialog"><button aria-label="Fechar">×</button></form></div>
+  <div class="dlg-body">
+    <h3>Limites da responsabilidade</h3>
+    <p>Este site contém referências e hiperligações a outros sites, sobre os quais a Raul Correia – Representações, Lda não exerce qualquer controlo. A inclusão de referências e de hiperligações a outros sites é de teor meramente informativo e não significa que a Raul Correia – Representações, Lda adere ou se responsabiliza pelo conteúdo e atualização de tais sites, sendo inteiramente alheia aos respetivos conteúdos, serviços e/ou produtos oferecidos, não lhe podendo ser imputada, desta forma, qualquer responsabilidade pelo seu conteúdo.</p>
+    <h3>Política de privacidade</h3>
+    <p>O Regulamento Geral sobre a Proteção de Dados Pessoais – Regulamento nº 2016/679 do Parlamento Europeu e do Conselho, de 27 de abril de 2016, estabelece as regras relativas à proteção, tratamento e livre circulação dos dados pessoais das pessoas singulares que se aplicam diretamente a todas as entidades que procedam ao tratamento desses dados, em qualquer Estado-membro da União Europeia, nomeadamente Portugal.</p>
+    <p>No âmbito e para efeitos dos serviços que lhe prestamos, a Raul Correia – Representações, Lda é a entidade responsável pelo tratamento dos dados recolhidos, tendo presente a obrigação de assegurar a proteção da sua privacidade, atuando em conformidade com a lei e o Regulamento.</p>
+    <p>Os nossos registos incluem dados que foram obtidos ao longo da relação contratual estabelecida connosco. A Raul Correia – Representações, Lda conservará os seus dados pessoais pelo período necessário não apenas à prestação dos serviços e respetiva faturação, como ao cumprimento das obrigações legais. Os dados pessoais nunca são transmitidos a entidades externas, com exceção das autoridades judiciais e fiscais, para efeitos de cumprimento de imposições legais.</p>
+    <p>Em qualquer momento, tem o direito de aceder aos seus dados pessoais, bem como, dentro dos limites do contratualizado e do Regulamento, de os alterar, opor-se ao respetivo tratamento, decidir sobre o tratamento automatizado dos mesmos, retirar o consentimento e exercer os demais direitos previstos na lei (salvo quanto aos dados que são indispensáveis à prestação dos serviços, portanto de fornecimento obrigatório, ou ao cumprimento de obrigações legais a que a Raul Correia – Representações, Lda esteja sujeita). Caso retire o seu consentimento, tal não compromete a licitude do tratamento efetuado até essa data. Tem o direito de ser notificado, nos termos previstos no Regulamento, no prazo de 72 horas, caso ocorra uma violação dos seus dados pessoais, podendo apresentar reclamações perante a(s) autoridade(s).</p>
+    <h3>Finalidades da recolha de dados</h3>
+    <p>Sempre que necessário, para lhe prestarmos os nossos serviços e para ações de comunicação direta, tratamos os seus dados pessoais. Para além desta finalidade, os seus dados serão ainda tratados por força de imposições legais.</p>
+    <h3>Entidade responsável pelo tratamento</h3>
+    <p>Raul Correia – Representações, Lda, Catraia dos Poços, EN17, nº 440 – 3300-353 S. Martinho da Cortiça. Endereço de email para solicitar acesso aos seus dados: <a href="mailto:raulcorreia@raulcorreia.pt">raulcorreia@raulcorreia.pt</a></p>
+    <p>Estamos empenhados na proteção e confidencialidade dos seus dados pessoais. Tomámos as medidas técnicas e organizativas necessárias ao cumprimento do Regulamento, garantindo que o tratamento dos seus dados pessoais é lícito, leal, transparente e limitado às finalidades autorizadas.</p>
+    <p>Adotámos as medidas que consideramos adequadas para assegurar a exatidão, integridade e confidencialidade dos seus dados pessoais, bem como todos os demais direitos que lhe assistem, incluindo solicitar a competente declaração de confidencialidade aos nossos trabalhadores e prestadores de serviços, bem assim formas de arquivo da documentação que salvaguardam o acesso aos dados de forma proporcional e apenas por pessoas autorizadas.</p>
+  </div>
+</dialog>
+
+<dialog id="dlg-ral" aria-labelledby="dlg-ral-t">
+  <div class="dlg-head"><h2 id="dlg-ral-t">Resolução alternativa de litígios</h2><form method="dialog"><button aria-label="Fechar">×</button></form></div>
+  <div class="dlg-body">
+    <p>Em caso de litígio, o consumidor pode recorrer à seguinte entidade de resolução alternativa de litígios de consumo – Lei n.º 144/2015, de 8 de setembro (que transpôs a Diretiva 2013/11/UE, do Parlamento Europeu e do Conselho, de 21 de maio de 2013):</p>
+    <h3>CACRC – Centro de Arbitragem de Conflitos de Consumo</h3>
+    <p><a href="https://cacrc.pt/" target="_blank" rel="noopener">cacrc.pt</a></p>
+    <p>Para mais informações, consulte o Portal do Consumidor em <a href="https://www.consumidor.gov.pt/" target="_blank" rel="noopener">www.consumidor.gov.pt</a>.</p>
+  </div>
+</dialog>
+
+<script>
+(()=>{
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* menu */
+const burger=$('#burger'), nav=$('#nav');
+let lockY=0;
+const setMenu=open=>{
+  if(open===nav.classList.contains('open'))return;
+  nav.classList.toggle('open',open);burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
+  const b=document.body.style, h=document.documentElement.style;
+  if(open){lockY=scrollY;h.overflow='hidden';Object.assign(b,{position:'fixed',top:-lockY+'px',left:'0',right:'0',width:'100%'})}
+  else{h.overflow='';Object.assign(b,{position:'',top:'',left:'',right:'',width:''});scrollTo({top:lockY,behavior:'instant'})}
+};
+burger.addEventListener('click',()=>setMenu(!nav.classList.contains('open')));
+$$('a',nav).forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);burger.focus({preventScroll:true})}});
+matchMedia('(min-width:56.25em)').addEventListener('change',e=>{if(e.matches)setMenu(false)});
+
+/* sticky header */
+const header=$('#header');
+const onScroll=()=>header.classList.toggle('scrolled',scrollY>10);
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+$$('.rv, #steps').forEach(el=>io.observe(el));
+
+/* open / closed — Europe/Lisbon */
+const H={ /* minutes from midnight; 0 = Sunday */
+  sede:{1:[[480,780],[840,1140]],2:[[480,780],[840,1140]],3:[[480,780],[840,1140]],4:[[480,780],[840,1140]],5:[[480,780],[840,1140]]},
+  loja:{1:[[510,780],[840,1110]],2:[[510,780],[840,1110]],3:[[510,780],[840,1110]],4:[[510,780],[840,1110]],5:[[510,780],[840,1110]],6:[[540,780]]}
+};
+const DAYS=['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+const fmt=m=>Math.floor(m/60)+':'+String(m%60).padStart(2,'0');
+const lisbon=()=>{const o={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Lisbon',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).forEach(p=>o[p.type]=p.value);return{d:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(o.weekday),m:(+o.hour)*60+(+o.minute)}};
+const state=loc=>{
+  const {d,m}=lisbon(), today=H[loc][d]||[];
+  for(const [a,b] of today) if(m>=a&&m<b) return {open:true,txt:'Aberto · fecha às '+fmt(b)};
+  for(const [a] of today) if(m<a) return {open:false,txt:'Fechado · abre às '+fmt(a)};
+  for(let i=1;i<=7;i++){const dd=(d+i)%7,s=H[loc][dd];if(s) return {open:false,txt:'Fechado · abre '+(i===1?'amanhã':DAYS[dd])+' às '+fmt(s[0][0])}}
+};
+const paint=()=>{
+  const {d}=lisbon();
+  $$('.status[data-loc]').forEach(el=>{const s=state(el.dataset.loc);el.classList.toggle('open',s.open);$('.st',el).textContent=s.txt});
+  $$('.hours tr').forEach(tr=>{const r=tr.dataset.days;let on=false;if(r==='1-5')on=d>=1&&d<=5;else if(r==='6-0')on=d===6||d===0;else on=+r===d;tr.classList.toggle('today',on)});
+};
+paint(); setInterval(paint,30000);
+
+/* gama preview window (mouse only) */
+const peek=$('.peek'), pimg=$('img',peek);
+if(matchMedia('(hover:hover) and (pointer:fine)').matches){
+  const rows=$$('.row');
+  rows.forEach(r=>{if(r.dataset.img){const i=new Image();i.src=r.dataset.img}});
+  let x=0,y=0,tx=0,ty=0,raf=0;
+  const loop=()=>{x+=(tx-x)*.18;y+=(ty-y)*.18;peek.style.transform=`translate(${x}px,${y}px) rotate(${(tx-x)*.02}deg)`;raf=Math.abs(tx-x)+Math.abs(ty-y)>.5?requestAnimationFrame(loop):0};
+  rows.forEach(r=>{
+    r.addEventListener('mouseenter',()=>{if(!r.dataset.img){peek.classList.remove('on');return}pimg.src=r.dataset.img;peek.classList.add('on')});
+    r.addEventListener('mouseleave',()=>peek.classList.remove('on'));
+    addEventListener('scroll',()=>peek.classList.remove('on'),{passive:true});
+    r.addEventListener('mousemove',e=>{tx=Math.min(e.clientX+28,innerWidth-peek.offsetWidth-12);ty=e.clientY-peek.offsetHeight/2;if(reduce){x=tx;y=ty;peek.style.transform=`translate(${x}px,${y}px)`}else if(!raf)raf=requestAnimationFrame(loop)});
+  });
+}
+
+/* brand filter */
+const chips=$$('.chip'), tiles=$$('.brand'), q=$('#brand-q'), count=$('#brand-count'), empty=$('#brand-empty');
+let g='all';
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const apply=()=>{
+  const t=norm(q.value.trim());let n=0;
+  tiles.forEach(el=>{const ok=(g==='all'||el.dataset.g.split(' ').includes(g))&&(!t||norm($('b',el).textContent).includes(t));el.hidden=!ok;if(ok)n++});
+  count.textContent=n===40?'40 marcas':`${n} de 40 marcas`;empty.hidden=n>0;
+};
+const setG=v=>{g=v;chips.forEach(c=>c.setAttribute('aria-pressed',c.dataset.g===v));apply()};
+chips.forEach(c=>c.addEventListener('click',()=>setG(c.dataset.g)));
+q.addEventListener('input',apply);
+$$('.see').forEach(b=>b.addEventListener('click',()=>{q.value='';setG(b.dataset.filter);const sel=$(`.chip[data-g="${b.dataset.filter}"]`);$('#marcas').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(()=>sel.focus({preventScroll:true}),reduce?0:700)}));
+
+/* flow rail */
+const rail=$('.rail'), fill=$('.rail-fill');
+const secs=[['inicio','Início'],['gamas','Gamas'],['servico','Serviço'],['marcas','Marcas'],['empresa','Empresa'],['faq','Perguntas'],['contactos','Contactos']].map(([id,l])=>{const a=document.createElement('a');a.href='#'+id;a.innerHTML=`<i></i><span>${l}</span>`;rail.appendChild(a);return{el:document.getElementById(id),a}});
+let max=1;
+const layout=()=>{max=Math.max(1,document.documentElement.scrollHeight-innerHeight);secs.forEach(s=>s.a.style.top=Math.min(100,s.el.offsetTop/max*100)+'%')};
+const progress=()=>{const p=Math.min(1,scrollY/max);fill.style.height=p*100+'%';let cur=null;secs.forEach(s=>{const on=s.el.offsetTop<=scrollY+innerHeight*.35;s.a.classList.toggle('on',on);if(on)cur=s});$$('.nav li a').forEach(a=>a.setAttribute('aria-current',cur&&a.getAttribute('href')==='#'+cur.el.id))};
+addEventListener('resize',()=>{layout();progress()});
+addEventListener('load',()=>{layout();progress()});
+addEventListener('scroll',()=>{onScroll();progress()},{passive:true});
+layout();onScroll();progress();
+
+/* dialogs */
+$$('[data-dialog]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.dialog).showModal()));
+$$('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
+
+/* quote form → email */
+const form=$('#qform'), msg=$('#form-msg');
+$('#f-gama').value='';
+$$('.see').forEach(b=>b.addEventListener('click',()=>{const o=$(`#f-gama option[data-g="${b.dataset.filter}"]`);if(o)o.selected=true}));
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  let bad=null;
+  $$('[required]',form).forEach(f=>{const ok=f.value.trim()&&(f.type!=='email'||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.value.trim()));f.setAttribute('aria-invalid',!ok);if(!ok&&!bad)bad=f});
+  if(bad){msg.hidden=false;msg.className='form-msg err';msg.textContent='Preencha o nome, um email válido e a mensagem.';bad.focus();return}
+  const v=n=>form.elements[n].value.trim(), to=form.elements.dest.value, gama=v('gama')||'Várias';
+  const body=`Nome: ${v('nome')}\nEmpresa: ${v('empresa')||'—'}\nTelefone: ${v('telefone')||'—'}\nEmail: ${v('email')}\nGama: ${gama}\n\n${v('mensagem')}\n\n— Pedido enviado a partir de raulcorreia.pt`;
+  const subject=`Pedido de orçamento · ${gama} · ${v('nome')}`;
+  location.href=`mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  msg.hidden=false;msg.className='form-msg';
+  msg.innerHTML=`O seu programa de email deve abrir com o pedido pronto a enviar para <b>${to}</b>. Não abriu? Copie o texto e envie-o manualmente. <button type="button" id="copy">Copiar pedido</button>`;
+  $('#copy').addEventListener('click',async ev=>{try{await navigator.clipboard.writeText(`Para: ${to}\nAssunto: ${subject}\n\n${body}`);ev.target.textContent='Copiado ✓'}catch{ev.target.textContent='Não foi possível copiar'}});
+});
+$$('[required]',form).forEach(f=>f.addEventListener('input',()=>f.removeAttribute('aria-invalid')));
+})();
+</script>
+</body>
+</html>
