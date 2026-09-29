@@ -27,12 +27,18 @@ def api_key():
     key = os.environ.get("TT_API_KEY")
     if key:
         return key
-    # The file moved into Code/ at some point; both are tried, newest first,
-    # because a stale path here fails every local run with a misleading
-    # "no key found" rather than anything about the move.
+    # The file has moved and been renamed before; every path anyone has ever
+    # used is tried, newest first, because a stale path here fails every
+    # local run with a misleading "no key found" rather than anything about
+    # the move. Renamed 2026-09-21: "API Keys.rtf" -> "Semente ticket
+    # tailor API Key.rtf" (broke the local launchd job silently for 8 days,
+    # 2026-09-21 to 2026-09-29, because CI reads TT_API_KEY from a secret
+    # and never touches this file at all).
     candidates = [
-        "~/Desktop/Semente/Franco/Code/API Keys.rtf",   # Franco's Mac
-        "~/mnt/Semente/Franco/Code/API Keys.rtf",       # Cowork session mount
+        "~/Desktop/Semente/Franco/Code/Semente ticket tailor API Key.rtf",
+        "~/mnt/Semente/Franco/Code/Semente ticket tailor API Key.rtf",
+        "~/Desktop/Semente/Franco/Code/API Keys.rtf",   # pre-2026-09-21
+        "~/mnt/Semente/Franco/Code/API Keys.rtf",
         "~/Desktop/Semente/Franco/API Keys.rtf",        # pre-2026-08-31
         "~/mnt/Semente/Franco/API Keys.rtf",
     ]
