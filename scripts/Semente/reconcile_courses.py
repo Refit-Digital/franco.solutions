@@ -44,9 +44,14 @@ sanctioned way to reserve seats outside the box office: this script owns the
 allocation field, and anything written there by hand, in the dashboard or over
 the API, is overwritten on the next run.
 
-Every course is reconciled even if an earlier one fails, so one bad config
-cannot leave another course unprotected. The exit code is 1 if ANY course was
-oversold or had a stale config.
+Every course is reconciled even if another one fails, so one bad config, API
+error or deleted course cannot leave another course unprotected.
+
+    deleted series   -> warning, skipped, run stays green (nothing left to
+                        oversell; remove the Course from COURSES at leisure)
+    stale config,    -> error, nothing written for that course, exit 1
+    API error, or
+    oversold
 
 Usage:
     python3 reconcile_courses.py                     # dry run, all courses
@@ -58,7 +63,7 @@ Usage:
 import datetime
 import sys
 
-from ttlib import api_key, request, ticket_types, write_payload
+from ttlib import SeriesNotFound, api_key, request, ticket_types, write_payload
 
 
 class Course:
@@ -273,9 +278,19 @@ def main():
 
     healthy = True
     for course in selected_courses():
-        # Every course runs even if an earlier one failed, so one stale config
-        # cannot leave another course's room unprotected.
-        if not reconcile(course, key, now, apply_changes):
+        # Each course is isolated: nothing that goes wrong in one course can
+        # stop the others from being reconciled.
+        try:
+            if not reconcile(course, key, now, apply_changes):
+                healthy = False
+        except SeriesNotFound as e:
+            # A deleted course cannot oversell, so this is not an alarm.
+            # "::warning::" shows as a yellow note on the GitHub run.
+            print("::warning::%s (%s) skipped: %s. Remove it from COURSES."
+                  % (course.name, course.key, e))
+        except Exception as e:
+            print("ERROR: %s failed: %s: %s. Nothing more written for this "
+                  "course." % (course.name, type(e).__name__, e))
             healthy = False
         print()
 

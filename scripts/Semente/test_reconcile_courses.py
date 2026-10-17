@@ -258,6 +258,49 @@ try:
 finally:
     R.COURSES = real_courses
 
+# A deleted series (Seeds of English, 2026-10-17) or an API error in one
+# course must not stop the others. Deleted = warning and exit 0; API error =
+# exit 1. Either way the healthy course is still written.
+def lookup_with(failing_series, exc):
+    def lookup(key, series):
+        if series == failing_series:
+            raise exc
+        return healthy_onda
+    return lookup
+
+onda_month = R.ONDA.months[3][0]
+healthy_onda = fake_box_office(R.ONDA, 10, month_sales={onda_month: 3})
+real_courses, real_tt = R.COURSES, R.ticket_types
+R.COURSES = [FAKE_BROKEN, R.ONDA]
+try:
+    for label, exc, want_code in [
+            ("deleted series", ttlib.SeriesNotFound("gone"), 0),
+            ("API error", OSError("HTTP 500"), 1)]:
+        R.api_key = lambda: "sk_fake"
+        R.request = lambda key, path, data=None: writes.append((path, data))
+        R.ticket_types = lookup_with(FAKE_BROKEN.series, exc)
+        del writes[:]
+        saved = sys.argv[:]
+        sys.argv = ["reconcile_courses.py", "--apply", "--today", DAY]
+        buf = io.StringIO()
+        code = 0
+        try:
+            with contextlib.redirect_stdout(buf):
+                R.main()
+        except SystemExit as e:
+            code = e.code if isinstance(e.code, int) else 1
+        finally:
+            sys.argv = saved
+        out, ws = buf.getvalue(), list(writes)
+        check("main: %s exits %d" % (label, want_code), code == want_code,
+              "got %r" % code)
+        check("main: %s still reconciles the other course" % label,
+              ws != [] and all(R.ONDA.series in p for p, _ in ws), repr(ws[:2]))
+        check("main: %s is reported" % label,
+              ("::warning::" if want_code == 0 else "ERROR:") in out)
+finally:
+    R.COURSES, R.ticket_types = real_courses, real_tt
+
 print()
 if failures:
     sys.exit("%d FAILED: %s" % (len(failures), ", ".join(failures)))

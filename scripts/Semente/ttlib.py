@@ -67,6 +67,10 @@ def request(key, path, data=None):
         return json.loads(r.read().decode())
 
 
+class SeriesNotFound(Exception):
+    """The event series no longer exists in Ticket Tailor (usually deleted)."""
+
+
 def ticket_types(key, series):
     """All ticket types of one event series, keyed by id.
 
@@ -77,7 +81,7 @@ def ticket_types(key, series):
     for s in data["data"]:
         if s["id"] == series:
             return {t["id"]: t for t in s["default_ticket_types"]}
-    sys.exit("Event series %s not found" % series)
+    raise SeriesNotFound("Event series %s not found" % series)
 
 
 def write_payload(tt, quantity):
