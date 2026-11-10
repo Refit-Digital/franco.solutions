@@ -112,15 +112,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 body.ready #rain{opacity:.1}
 
-/* A saturated copy of the same rain, revealed only through a soft circular
-   mask that follows the cursor. The code brightens where you point at it. */
-/* one ring, expanding from where you pressed, lighting the code as it goes */
+/* A saturated copy of the same rain, cut into a ring and lit up where you
+   pressed. The ring is cut into the canvas pixels themselves (see pingStep),
+   NOT with a CSS mask: a mask rewritten every frame let mobile browsers paint
+   the whole unmasked canvas for a frame before the ring appeared. */
 #rainPing{
   position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
   transform:scaleX(-1);opacity:0;
   filter:saturate(2.6) brightness(1.7);
-  -webkit-mask-image:radial-gradient(circle var(--pr,0px) at var(--px,-999px) var(--py,-999px),transparent 0%,transparent 64%,#000 86%,transparent 100%);
-          mask-image:radial-gradient(circle var(--pr,0px) at var(--px,-999px) var(--py,-999px),transparent 0%,transparent 64%,#000 86%,transparent 100%);
 }
 
 /* ============ RATE DIAL ============ */
@@ -1203,7 +1202,7 @@ function frame(){
 /* ---- click ripple ----------------------------------------------------
    Runs on its own 60fps loop rather than the rain's 24fps one, so the ring
    expands smoothly even though the code behind it redraws slower. */
-var PING_MS = 950, pingT0 = 0, pingRaf = null, pingR = 0;
+var PING_MS = 950, pingT0 = 0, pingRaf = null, pingR = 0, pingX = 0, pingY = 0;
 function startPing(x, y){
   if (RM || !W) return;
   /* reach the furthest corner, so the ring always leaves the screen
@@ -1211,24 +1210,42 @@ function startPing(x, y){
   pingR = Math.max(Math.hypot(x, y), Math.hypot(W - x, y),
                    Math.hypot(x, H - y), Math.hypot(W - x, H - y));
   pingT0 = performance.now();
-  ping.style.setProperty('--px', (W - x).toFixed(0) + 'px');   /* canvas is mirrored */
-  ping.style.setProperty('--py', y.toFixed(0) + 'px');
+  pingX = W - x;  pingY = y;                 /* canvas is mirrored */
   if (!pingRaf) pingRaf = requestAnimationFrame(pingStep);
+}
+function pingOff(){
+  ping.style.opacity = '0';
+  pctx.setTransform(1, 0, 0, 1, 0, 0);
+  pctx.globalCompositeOperation = 'source-over';
+  pctx.clearRect(0, 0, ping.width, ping.height);
 }
 function pingStep(now){
   var t = (now - pingT0) / PING_MS;
-  if (t >= 1){
-    ping.style.opacity = '0';
-    ping.style.setProperty('--pr', '0px');
-    pctx.clearRect(0, 0, W, H);
-    pingRaf = null;
+  if (t >= 1){ pingOff(); pingRaf = null; return; }
+  var e = 1 - Math.pow(1 - t, 2.4);
+  var r = e * pingR;
+  /* the ring has no size yet: show nothing, so the first frame can never be
+     the whole screen */
+  if (r < 2){
+    pingOff();
+    pingRaf = requestAnimationFrame(pingStep);
     return;
   }
-  var e = 1 - Math.pow(1 - t, 2.4);
   pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  pctx.globalCompositeOperation = 'source-over';
   pctx.clearRect(0, 0, W, H);
   pctx.drawImage(cvs, 0, 0, W, H);
-  ping.style.setProperty('--pr', (e * pingR).toFixed(0) + 'px');
+  /* keep only a soft ring of the copy: clear inside 64% of the radius, full
+     strength at 86%, gone again at the edge and beyond */
+  var g = pctx.createRadialGradient(pingX, pingY, 0, pingX, pingY, r);
+  g.addColorStop(0,    'rgba(0,0,0,0)');
+  g.addColorStop(0.64, 'rgba(0,0,0,0)');
+  g.addColorStop(0.86, 'rgba(0,0,0,1)');
+  g.addColorStop(1,    'rgba(0,0,0,0)');
+  pctx.globalCompositeOperation = 'destination-in';
+  pctx.fillStyle = g;
+  pctx.fillRect(0, 0, W, H);
+  pctx.globalCompositeOperation = 'source-over';
   /* stays lit most of the way out instead of dying halfway */
   ping.style.opacity = (0.92 * (1 - t * t)).toFixed(3);
   pingRaf = requestAnimationFrame(pingStep);
